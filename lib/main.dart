@@ -35,72 +35,76 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 0.0,horizontal:100.0),
-              child: Text("We Believe We can Change the world together…",
-                style: TextStyle(fontSize: 22.0,color: Color(0xff38385E),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0,horizontal:70.0),
-              child: Text("We care about every small details to sastisfy your needs when you use our service",
-                style: TextStyle(fontSize: 16.0,color: Color(0xff78789D),fontWeight: FontWeight.w400,fontFamily: "PoppinsSemiBold"),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Image.asset('assets/images/Pavigation.png'),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0,horizontal:70.0),
-              child: Text("Welcome, let’s get started!!!!!",
-                style: TextStyle(fontSize: 16.0,color: Color(0xff373737),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
-                      backgroundColor: const Color(0xFFdddddd),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )
-                    ),
-                    onPressed: () { },
-                    child: const Text('Log in',
-                      style: TextStyle(fontSize: 14.0,color: Color(0xFFEE8823),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
-                    ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 0.0,horizontal:100.0),
+                  child: Text("We Believe We can Change the world together…",
+                    style: TextStyle(fontSize: 22.0,color: Color(0xff38385E),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
-                      backgroundColor: const Color(0xFF36BDA4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )
-                    ),
-                    onPressed: () { },
-                    child: const Text('Sign up',
-                      style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold",color: Color(0xFFFFFFFF)),
-                    ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0,horizontal:70.0),
+                  child: Text("We care about every small details to sastisfy your needs when you use our service",
+                    style: TextStyle(fontSize: 16.0,color: Color(0xff78789D),fontWeight: FontWeight.w400,fontFamily: "PoppinsSemiBold"),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Image.asset('assets/images/Pavigation.png'),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0,horizontal:70.0),
+                  child: Text("Welcome, let’s get started!!!!!",
+                    style: TextStyle(fontSize: 16.0,color: Color(0xff373737),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
             ),
+            Positioned(
+              bottom: 0,
+              left: 30,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
+                        backgroundColor: const Color(0xFFdddddd),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )
+                      ),
+                      onPressed: () { },
+                      child: const Text('Log in',
+                        style: TextStyle(fontSize: 14.0,color: Color(0xFFEE8823),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
+                        backgroundColor: const Color(0xFF36BDA4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )
+                      ),
+                      onPressed: () { },
+                      child: const Text('Sign up',
+                        style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold",color: Color(0xFFFFFFFF)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
-        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
