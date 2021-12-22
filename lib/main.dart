@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Login.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -35,11 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffffffff),
       body: Stack(
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset('assets/images/landing_img.png'),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 0.0,horizontal:100.0),
                   child: Text("We Believe We can Change the world together…",
@@ -79,7 +83,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderRadius: BorderRadius.circular(10.0),
                         )
                       ),
-                      onPressed: () { },
+                      onPressed: () { 
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Login()),
+                      );
+                      },
                       child: const Text('Log in',
                         style: TextStyle(fontSize: 14.0,color: Color(0xFFEE8823),fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold"),
                       ),
