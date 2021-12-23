@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'Login.dart';
+import 'login.dart';
+import 'signup.dart';
+import 'create_profile.dart'; //just to open  this screen
 
 void main() {
   runApp(const MyApp());
@@ -85,8 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       onPressed: () { 
                         Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Login()),
+                          context,
+                          MaterialPageRoute(builder: (context) => const create_profile()
+                        ),
                       );
                       },
                       child: const Text('Log in',
@@ -104,7 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderRadius: BorderRadius.circular(10.0),
                         )
                       ),
-                      onPressed: () { },
+                      onPressed: () { 
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const signup())
+                        );
+                      },
                       child: const Text('Sign up',
                         style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w600,fontFamily: "PoppinsSemiBold",color: Color(0xFFFFFFFF)),
                       ),

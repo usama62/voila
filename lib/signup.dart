@@ -1,10 +1,10 @@
 
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'signup.dart';
+import 'package:flutter/material.dart';
+import 'login.dart';
 
-class login extends StatelessWidget {
-  const login({Key? key,}) : super(key: key);
+class signup extends StatelessWidget {
+  const signup({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class login extends StatelessWidget {
                       ),
                       const Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                        child: Text("Log in",
+                        child: Text("Sign Up",
                           style: TextStyle(fontFamily: "PoppinsSemiBold",color: Color(0xffEE8823),fontSize: 22.0,fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -44,7 +44,7 @@ class login extends StatelessWidget {
                           ),
                           children: [
                             const TextSpan(
-                              text: 'Welcome back!\nDon’t have an account',
+                              text: 'Create New Account!\nHave an account ',
                             ),
                             const TextSpan(
                               text: '? ',
@@ -53,12 +53,12 @@ class login extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text: 'Sign up',
+                              text: 'Sign In',
                               recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const signup())
+                                  MaterialPageRoute(builder: (context) => const login())
                                 );
                               },
                               style: const TextStyle(
@@ -68,7 +68,8 @@ class login extends StatelessWidget {
                             ),
                           ],
                         ),
-                        textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                        textHeightBehavior:
+                            const TextHeightBehavior(applyHeightToFirstAscent: false),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -104,7 +105,7 @@ class login extends StatelessWidget {
                               color: Color(0xff36BDA4)
                             )
                           ),
-                          hintText: 'Phone number',
+                          hintText: 'Name',
                           suffixStyle: TextStyle(color: Colors.green)
                         ),
                       ),
@@ -118,22 +119,12 @@ class login extends StatelessWidget {
                               color: Color(0xff36BDA4)
                             )
                           ),
-                          hintText: 'Phone number',
+                          hintText: 'Email',
                           suffixStyle: TextStyle(color: Colors.green)
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                      child: Text("Forgot your password?",
-                        style: TextStyle(
-                          fontFamily: 'PoppinsSemiBold',
-                          fontSize: 12,
-                          color: Color(0xffEE8823),
-                          fontWeight: FontWeight.w600
-                        ),
-                      ),
-                    ),
+                    
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: SizedBox(
@@ -141,13 +132,13 @@ class login extends StatelessWidget {
                         width: double.infinity,
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: const Color(0xFFEE8823),
+                            backgroundColor: const Color(0xFF36BDA4),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             )
                           ),
                           onPressed: () { },
-                          child: const Text('Log in',
+                          child: const Text('Sign Up',
                             style: TextStyle(
                               color: Color(0xFFFFFFFF),
                               fontFamily: 'PoppinsSemiBold',
