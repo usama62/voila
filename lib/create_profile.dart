@@ -8,44 +8,63 @@ class create_profile extends StatelessWidget{
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
+        // toolbarHeight: 100,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         backgroundColor: const Color(0xFF36BDA4),
-        title: const Center(
-          child: Text('Create Profile')
-        )
+        title: const Text('Create Profile'),
+        elevation: 0,
       ),
       body: SingleChildScrollView (
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Container(
+              height: 150,
+              decoration: const BoxDecoration(
+                color: Color(0xFF36BDA4),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(0.0),
+                  topRight: Radius.circular(0.0),
+                  bottomLeft: Radius.circular(50.0),
+                  bottomRight: Radius.circular(50.0),
+                ),
+              ),
+            ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
-                        child: Image.asset('assets/images/voila_logo.png'),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 0.0,horizontal:0.0),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                        child: Text("Sign Up",
-                          style: TextStyle(fontFamily: "PoppinsSemiBold",color: Color(0xffEE8823),fontSize: 22.0,fontWeight: FontWeight.w600),
+                Row(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 10.0),
+                      child: Text("Job Title",
+                        style: TextStyle(
+                          fontFamily: "PoppinsSemiBold",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF1F1F39)
                         ),
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                    )
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
-      ),
+      )
     );
   }
 }
