@@ -3,8 +3,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 
-class signup extends StatelessWidget {
+class signup extends StatefulWidget {
   const signup({Key? key,}) : super(key: key);
+
+  @override
+  State<signup> createState() => _signupState();
+}
+
+class _signupState extends State<signup> {
+    String password = '';
+    String conpassword = '';
+    bool isPassVisible = false;
+    bool isConPassVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +92,10 @@ class signup extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(0.0),
-                    topRight: Radius.circular(15.0),
-                    bottomLeft: Radius.circular(15.0),
-                    bottomRight: Radius.circular(15.0),
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                    bottomLeft: Radius.circular(10.0),
+                    bottomRight: Radius.circular(10.0),
                   ),
                   border: Border.all(
                     color: const Color(0xff36BDA4),
@@ -100,13 +110,23 @@ class signup extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                       child: TextField(
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(
+                          enabledBorder: UnderlineInputBorder(
                             borderSide:  BorderSide(
                               color: Color(0xff36BDA4)
                             )
                           ),
-                          hintText: 'Name',
-                          suffixStyle: TextStyle(color: Colors.green)
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xff373737),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600
+                          ),
                         ),
                       ),
                     ),
@@ -114,46 +134,126 @@ class signup extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                       child: TextField(
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(
+                          enabledBorder: UnderlineInputBorder(
                             borderSide:  BorderSide(
                               color: Color(0xff36BDA4)
                             )
                           ),
-                          hintText: 'Email',
-                          suffixStyle: TextStyle(color: Colors.green)
-                        ),
-                      ),
-                    ),
-                    
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: const Color(0xFF36BDA4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
                             )
                           ),
-                          onPressed: () { },
-                          child: const Text('Sign Up',
-                            style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontFamily: 'PoppinsSemiBold',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600
-                            ),
-                          
+                          labelText: 'Email',
+                          labelStyle: TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xff373737),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600
                           ),
                         ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xff373737),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600
+                          ),
+                          // errorText: "Password is wrong",
+                          prefixIcon: const Icon(Icons.vpn_key),
+                          suffixIcon: IconButton(
+                            icon: isPassVisible ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                            color: const Color(0xFF373737),
+                            onPressed: () => 
+                              setState(() {
+                                isPassVisible = !isPassVisible;
+                              }),
+                          ),
+                        ),
+                        obscureText: !isPassVisible,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          labelText: 'Re-enter Password',
+                          labelStyle: const TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xff373737),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600
+                          ),
+                          // errorText: "Password is wrong",
+                          prefixIcon: const Icon(Icons.vpn_key),
+                          suffixIcon: IconButton(
+                            icon: isConPassVisible ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                            color: const Color(0xFF373737),
+                            onPressed: () => 
+                              setState(() {
+                                isConPassVisible = !isConPassVisible;
+                              }),
+                          ),
+                        ),
+                        obscureText: !isConPassVisible,
                       ),
                     ),
                   ],
                 )
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(35.0, 0.0, 35.0, 0.0),
+              child: SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFF36BDA4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    )
+                  ),
+                  onPressed: () { },
+                  child: const Text('Sign Up',
+                    style: TextStyle(
+                      color: Color(0xFFFFFFFF),
+                      fontFamily: 'PoppinsSemiBold',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

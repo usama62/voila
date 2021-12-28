@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'signup.dart';
 
-class login extends StatelessWidget {
+class login extends StatefulWidget {
   const login({Key? key,}) : super(key: key);
+
+  @override
+  State<login> createState() => _loginState();
+}
+
+class _loginState extends State<login> {
+  String password = '';
+  bool isPassVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,12 @@ class login extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
                         child: Text("Log in",
-                          style: TextStyle(fontFamily: "PoppinsSemiBold",color: Color(0xffEE8823),fontSize: 22.0,fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xffEE8823),
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w600
+                          ),
                         ),
                       ),
                       Text.rich(
@@ -81,7 +94,7 @@ class login extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(0.0),
+                    topLeft: Radius.circular(15.0),
                     topRight: Radius.circular(15.0),
                     bottomLeft: Radius.circular(15.0),
                     bottomRight: Radius.circular(15.0),
@@ -99,28 +112,62 @@ class login extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                       child: TextField(
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(
+                          enabledBorder: UnderlineInputBorder(
                             borderSide:  BorderSide(
                               color: Color(0xff36BDA4)
                             )
                           ),
-                          hintText: 'Phone number',
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          labelText: 'Phone number',
+                          labelStyle: TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xff373737),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600
+                          ),
+                          prefixIcon: Icon(Icons.phone_iphone),
                           suffixStyle: TextStyle(color: Colors.green)
                         ),
+                        keyboardType: TextInputType.number,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                       child: TextField(
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide:  BorderSide(
                               color: Color(0xff36BDA4)
                             )
                           ),
-                          hintText: 'Phone number',
-                          suffixStyle: TextStyle(color: Colors.green)
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide:  BorderSide(
+                              color: Color(0xff36BDA4)
+                            )
+                          ),
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(
+                            fontFamily: "PoppinsSemiBold",
+                            color: Color(0xff373737),
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600
+                          ),
+                          // errorText: "Password is wrong",
+                          prefixIcon: Icon(Icons.vpn_key),
+                          suffixIcon: IconButton(
+                            icon: isPassVisible ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                            color: const Color(0xFF373737),
+                            onPressed: () => 
+                              setState(() {
+                                isPassVisible = !isPassVisible;
+                              }),
+                          ),
                         ),
+                        obscureText: !isPassVisible,
                       ),
                     ),
                     const Padding(
