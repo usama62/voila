@@ -78,7 +78,11 @@ flutter:
     - assets/images/ELECTRICAL.png
     - assets/images/FURNITUREASSEMBLY.png
     - assets/images/PLUMBING.png
-    - assets/icons/
+    - assets/images/PAINTING.png
+    - assets/images/home_icon.png
+    - assets/images/booking_icon.png
+    - assets/images/notification_icon.png
+    - assets/images/chat_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
