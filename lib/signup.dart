@@ -1,26 +1,27 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 
 class signup extends StatefulWidget {
-  const signup({Key? key,}) : super(key: key);
+  const signup({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<signup> createState() => _signupState();
 }
 
 class _signupState extends State<signup> {
-    String password = '';
-    String conpassword = '';
-    bool isPassVisible = false;
-    bool isConPassVisible = false;
+  String password = '';
+  String conpassword = '';
+  bool isPassVisible = false;
+  bool isConPassVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      body: SingleChildScrollView (
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,12 +38,18 @@ class _signupState extends State<signup> {
                         child: Image.asset('assets/images/voila_logo.png'),
                       ),
                       const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 0.0,horizontal:0.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 0.0),
                       ),
                       const Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                        child: Text("Sign Up",
-                          style: TextStyle(fontFamily: "PoppinsSemiBold",color: Color(0xffEE8823),fontSize: 22.0,fontWeight: FontWeight.w600),
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              fontFamily: "PoppinsSemiBold",
+                              color: Color(0xffEE8823),
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                       Text.rich(
@@ -65,12 +72,12 @@ class _signupState extends State<signup> {
                             TextSpan(
                               text: 'Sign In',
                               recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const login())
-                                );
-                              },
+                                ..onTap = () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const login()));
+                                },
                               style: const TextStyle(
                                 color: Color(0xffee8823),
                                 fontWeight: FontWeight.w500,
@@ -78,8 +85,8 @@ class _signupState extends State<signup> {
                             ),
                           ],
                         ),
-                        textHeightBehavior:
-                            const TextHeightBehavior(applyHeightToFirstAscent: false),
+                        textHeightBehavior: const TextHeightBehavior(
+                            applyHeightToFirstAscent: false),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -90,144 +97,131 @@ class _signupState extends State<signup> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0),
-                    bottomRight: Radius.circular(10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                    ),
+                    border: Border.all(
+                      color: const Color(0xff36BDA4),
+                      width: 1.5,
+                    ),
                   ),
-                  border: Border.all(
-                    color: const Color(0xff36BDA4),
-                    width: 1.5,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  [
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          labelText: 'Name',
-                          labelStyle: TextStyle(
-                            fontFamily: "PoppinsSemiBold",
-                            color: Color(0xff373737),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w600
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            labelText: 'Name',
+                            labelStyle: TextStyle(
+                                fontFamily: "PoppinsSemiBold",
+                                color: Color(0xff373737),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                                fontFamily: "PoppinsSemiBold",
+                                color: Color(0xff373737),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600),
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                            fontFamily: "PoppinsSemiBold",
-                            color: Color(0xff373737),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w600
-                          ),
+                          keyboardType: TextInputType.emailAddress,
                         ),
-                        keyboardType: TextInputType.emailAddress,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(
-                            fontFamily: "PoppinsSemiBold",
-                            color: Color(0xff373737),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w600
-                          ),
-                          // errorText: "Password is wrong",
-                          prefixIcon: const Icon(Icons.vpn_key),
-                          suffixIcon: IconButton(
-                            icon: isPassVisible ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
-                            color: const Color(0xFF373737),
-                            onPressed: () => 
-                              setState(() {
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            labelText: 'Password',
+                            labelStyle: const TextStyle(
+                                fontFamily: "PoppinsSemiBold",
+                                color: Color(0xff373737),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600),
+                            // errorText: "Password is wrong",
+                            prefixIcon: const ImageIcon(
+                              AssetImage('assets/images/icon_key.png'),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: isPassVisible
+                                  ? const Icon(Icons.visibility_off)
+                                  : const Icon(Icons.visibility),
+                              color: const Color(0xFF373737),
+                              onPressed: () => setState(() {
                                 isPassVisible = !isPassVisible;
                               }),
+                            ),
                           ),
+                          obscureText: !isPassVisible,
                         ),
-                        obscureText: !isPassVisible,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff36BDA4)
-                            )
-                          ),
-                          labelText: 'Re-enter Password',
-                          labelStyle: const TextStyle(
-                            fontFamily: "PoppinsSemiBold",
-                            color: Color(0xff373737),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w600
-                          ),
-                          // errorText: "Password is wrong",
-                          prefixIcon: const Icon(Icons.vpn_key),
-                          suffixIcon: IconButton(
-                            icon: isConPassVisible ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
-                            color: const Color(0xFF373737),
-                            onPressed: () => 
-                              setState(() {
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff36BDA4))),
+                            labelText: 'Re-enter Password',
+                            labelStyle: const TextStyle(
+                                fontFamily: "PoppinsSemiBold",
+                                color: Color(0xff373737),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600),
+                            // errorText: "Password is wrong",
+                            prefixIcon: const ImageIcon(
+                              AssetImage('assets/images/icon_key.png'),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: isConPassVisible
+                                  ? const Icon(Icons.visibility_off)
+                                  : const Icon(Icons.visibility),
+                              color: const Color(0xFF373737),
+                              onPressed: () => setState(() {
                                 isConPassVisible = !isConPassVisible;
                               }),
+                            ),
                           ),
+                          obscureText: !isConPassVisible,
                         ),
-                        obscureText: !isConPassVisible,
                       ),
-                    ),
-                  ],
-                )
-              ),
+                    ],
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(35.0, 0.0, 35.0, 0.0),
@@ -236,20 +230,18 @@ class _signupState extends State<signup> {
                 width: double.infinity,
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFF36BDA4),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    )
-                  ),
-                  onPressed: () { },
-                  child: const Text('Sign Up',
+                      backgroundColor: const Color(0xFF36BDA4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
+                  onPressed: () {},
+                  child: const Text(
+                    'Sign Up',
                     style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontFamily: 'PoppinsSemiBold',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600
-                    ),
-                  
+                        color: Color(0xFFFFFFFF),
+                        fontFamily: 'PoppinsSemiBold',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

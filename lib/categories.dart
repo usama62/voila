@@ -10,12 +10,47 @@ class categories extends StatefulWidget {
 }
 
 class _categoriesState extends State<categories> {
-  bool isSwitched = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: const Color(0xFFFFFFFF),
+        endDrawer: Drawer(
+            // Add a ListView to the drawer. This ensures the user can scroll
+            // through the options in the drawer if there isn't enough vertical
+            // space to fit everything.
+            child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        )),
         body: SingleChildScrollView(
           child: Column(children: [
             Container(
@@ -32,7 +67,8 @@ class _categoriesState extends State<categories> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+                      padding:
+                          const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -56,7 +92,14 @@ class _categoriesState extends State<categories> {
                                 ],
                               ),
                             ),
-                            Image.asset('assets/images/p_img_small.png')
+                            InkWell(
+                              onTap: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                              child:
+                                  Image.asset('assets/images/p_img_small.png'),
+                            ),
+                            // Image.asset('assets/images/p_img_small.png')
                           ]),
                     ),
                     Padding(
@@ -71,7 +114,9 @@ class _categoriesState extends State<categories> {
                                 fontWeight: FontWeight.w400,
                                 fontFamily: "PoppinsSemiBold",
                                 fontSize: 16),
-                            prefixIcon: const Icon(Icons.search),
+                            prefixIcon: const ImageIcon(
+                              AssetImage('assets/images/search.png'),
+                            ),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     color: Color(0xFFFFFFFF), width: 1.0),
@@ -107,17 +152,20 @@ class _categoriesState extends State<categories> {
                       height: 78,
                       decoration: BoxDecoration(
                           image: const DecorationImage(
-                            image: AssetImage('assets/images/CLEANING.png'),
-                            fit: BoxFit.cover
+                              image: AssetImage('assets/images/CLEANING.png'),
+                              fit: BoxFit.cover),
+                          border: Border.all(
+                            color: const Color(0xff36BDA4),
+                            width: 1,
                           ),
-                          borderRadius: BorderRadius.circular(15.0)
-                        ),
+                          borderRadius: BorderRadius.circular(15.0)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(8.0,0.0,0.0,0.0),
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
                             child: RichText(
                               text: const TextSpan(
                                 text: 'CLEANING',
@@ -128,14 +176,12 @@ class _categoriesState extends State<categories> {
                                     fontWeight: FontWeight.w600),
                                 children: [
                                   WidgetSpan(
-                                    child: Padding(
-                                      padding: EdgeInsets.fromLTRB(5.0,0.0,0.0,0.0),
-                                      child: Icon(
-                                        Icons.east,
-                                        color: Color(0xFFFFFFFF)
-                                      ),
-                                    )
-                                  )
+                                      child: Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                                    child: Icon(Icons.east,
+                                        color: Color(0xFFFFFFFF)),
+                                  ))
                                 ],
                               ),
                             ),
@@ -156,8 +202,12 @@ class _categoriesState extends State<categories> {
                       height: 78,
                       decoration: BoxDecoration(
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/FURNITUREASSEMBLY.png'),
-                          fit: BoxFit.cover
+                            image: AssetImage(
+                                'assets/images/FURNITUREASSEMBLY.png'),
+                            fit: BoxFit.cover),
+                        border: Border.all(
+                          color: const Color(0xff36BDA4),
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -166,15 +216,16 @@ class _categoriesState extends State<categories> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(8.0,0.0,0.0,0.0),
-                            child: Text("FURNITURE ASSEMBLY",
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              "FURNITURE ASSEMBLY",
                               style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600
+                                  color: Color(0xFFFFFFFF),
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
                             ),
-                          ),                          ),
+                          ),
                         ],
                       ),
                     ),
@@ -191,8 +242,11 @@ class _categoriesState extends State<categories> {
                       height: 78,
                       decoration: BoxDecoration(
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/PLUMBING.png'),
-                          fit: BoxFit.cover
+                            image: AssetImage('assets/images/PLUMBING.png'),
+                            fit: BoxFit.cover),
+                        border: Border.all(
+                          color: const Color(0xff36BDA4),
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -201,15 +255,16 @@ class _categoriesState extends State<categories> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(8.0,0.0,0.0,0.0),
-                            child: Text("PLUMBING",
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              "PLUMBING",
                               style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600
+                                  color: Color(0xFFFFFFFF),
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
                             ),
-                          ),                          ),
+                          ),
                         ],
                       ),
                     ),
@@ -226,8 +281,11 @@ class _categoriesState extends State<categories> {
                       height: 78,
                       decoration: BoxDecoration(
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/ELECTRICAL.png'),
-                          fit: BoxFit.cover
+                            image: AssetImage('assets/images/ELECTRICAL.png'),
+                            fit: BoxFit.cover),
+                        border: Border.all(
+                          color: const Color(0xff36BDA4),
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -236,15 +294,16 @@ class _categoriesState extends State<categories> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(8.0,0.0,0.0,0.0),
-                            child: Text("ELECTRICAL",
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              "ELECTRICAL",
                               style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600
+                                  color: Color(0xFFFFFFFF),
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
                             ),
-                          ),                          ),
+                          ),
                         ],
                       ),
                     ),
@@ -261,8 +320,11 @@ class _categoriesState extends State<categories> {
                       height: 78,
                       decoration: BoxDecoration(
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/PAINTING.png'),
-                          fit: BoxFit.cover
+                            image: AssetImage('assets/images/PAINTING.png'),
+                            fit: BoxFit.cover),
+                        border: Border.all(
+                          color: const Color(0xff36BDA4),
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -271,15 +333,16 @@ class _categoriesState extends State<categories> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(8.0,0.0,0.0,0.0),
-                            child: Text("PAINTING",
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              "PAINTING",
                               style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600
+                                  color: Color(0xFFFFFFFF),
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
                             ),
-                          ),                          ),
+                          ),
                         ],
                       ),
                     ),
@@ -296,8 +359,11 @@ class _categoriesState extends State<categories> {
                       height: 78,
                       decoration: BoxDecoration(
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/PAINTING.png'),
-                          fit: BoxFit.cover
+                            image: AssetImage('assets/images/PAINTING.png'),
+                            fit: BoxFit.cover),
+                        border: Border.all(
+                          color: const Color(0xff36BDA4),
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -306,15 +372,16 @@ class _categoriesState extends State<categories> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(8.0,0.0,0.0,0.0),
-                            child: Text("GENERAL HANDYMAN",
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              "GENERAL HANDYMAN",
                               style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600
+                                  color: Color(0xFFFFFFFF),
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
                             ),
-                          ),                          ),
+                          ),
                         ],
                       ),
                     ),
@@ -324,38 +391,36 @@ class _categoriesState extends State<categories> {
             ),
           ]),
         ),
-        bottomNavigationBar: BottomNavigationBar(  
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: const Color(0xFFEE8823),
-          backgroundColor: Colors.white  ,
-          unselectedItemColor: const Color(0xFF373737),
-          items: const <BottomNavigationBarItem>[  
-            BottomNavigationBarItem(  
-              icon: ImageIcon(
-                AssetImage('assets/images/home_icon.png'),
-              ),  
-              label: 'Home',  
-            ),  
-            BottomNavigationBarItem(  
-              icon: ImageIcon(
-                AssetImage('assets/images/booking_icon.png'),
-              ),  
-              label: 'Bookings',  
-            ), 
-            BottomNavigationBarItem(  
-              icon:  ImageIcon(
-                AssetImage('assets/images/chat_icon.png'),
-              ), 
-              label: 'Chat',  
-            ),  
-            BottomNavigationBarItem(  
-              icon: ImageIcon(
-                AssetImage('assets/images/notification_icon.png'),
+        bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: const Color(0xFFEE8823),
+            backgroundColor: Colors.white,
+            unselectedItemColor: const Color(0xFF373737),
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/home_icon.png'),
+                ),
+                label: 'Home',
               ),
-              label: 'Notifications',  
-            ),  
-          ]
-        )
-      );
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/booking_icon.png'),
+                ),
+                label: 'Bookings',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/chat_icon.png'),
+                ),
+                label: 'Chat',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/notification_icon.png'),
+                ),
+                label: 'Notifications',
+              ),
+            ]));
   }
 }
