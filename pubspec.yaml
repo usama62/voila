@@ -61,7 +61,9 @@ flutter:
     - family: Segoe_ui
       fonts:
         - asset: assets/SEGOEUI.ttf
-
+    - family: Arial
+      fonts:
+        - asset: assets/arial.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -86,6 +88,18 @@ flutter:
     - assets/images/booking_icon.png
     - assets/images/notification_icon.png
     - assets/images/chat_icon.png
+    - assets/images/icon_money_check.png
+    - assets/images/icon_profile.png
+    - assets/images/icon_setting.png
+    - assets/images/icon_support.png
+    - assets/images/icon_policy.png
+    - assets/images/icon_logout.png
+    - assets/images/jullian.png
+    - assets/images/mike.png
+    - assets/images/blair.png
+    - assets/images/clair.png
+    - assets/images/ashley.png
+    - assets/images/molly.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

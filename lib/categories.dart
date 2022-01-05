@@ -11,46 +11,213 @@ class categories extends StatefulWidget {
 
 class _categoriesState extends State<categories> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  somemethod() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: const Color(0xFFFFFFFF),
-        endDrawer: Drawer(
-            // Add a ListView to the drawer. This ensures the user can scroll
-            // through the options in the drawer if there isn't enough vertical
-            // space to fit everything.
-            child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
+        endDrawer: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            bottomLeft: Radius.circular(20.0)
             ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        )),
+          child: Drawer(
+              backgroundColor: const Color(0xFFFFFFFF),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFEAEAFF),
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                              child: Image.asset('assets/images/p_img_small.png'),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              children: const [
+                                Text(
+                                  "Janet Anderson",
+                                  style: TextStyle(
+                                      color: Color(0xFF373737),
+                                      fontFamily: "PoppinsSemiBold",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                                  child: Image.asset("assets/images/icon_money_check.png"),
+                                ),
+                                const Text(
+                                  "0 Credits",
+                                  style: TextStyle(
+                                      color: Color(0xFF373737),
+                                      fontFamily: "PoppinsSemiBold",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TextButton(
+                                  style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xFFEE8823),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      )),
+                                  onPressed: somemethod,
+                                  child: const Text(
+                                    "Buy Credits",
+                                    style: TextStyle(
+                                        color: Color(0xFFFFFFFF),
+                                        fontFamily: "PoppinsSemiBold",
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
+                                  )
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListTile(
+                    horizontalTitleGap: 0.0,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    leading: Image.asset('assets/images/icon_profile.png'),
+                    title: const Text('Profile',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F39),
+                        fontFamily: "PoppinsSemiBold",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      )
+                    ),
+                    
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const Divider(
+                    height: 10.0,
+                    color: Color(0xFF373737),
+                    indent: 40.0,
+                    endIndent: 40.0,
+                  ),
+                  ListTile(
+                    horizontalTitleGap: 0.0,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    leading: Image.asset('assets/images/icon_setting.png'),
+                    title: const Text('Setting',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F39),
+                        fontFamily: "PoppinsSemiBold",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      )
+                    ),
+                    
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const Divider(
+                    height: 10.0,
+                    color: Color(0xFF373737),
+                    indent: 40.0,
+                    endIndent: 40.0,
+                  ),
+                  ListTile(
+                    horizontalTitleGap: 0.0,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    leading: Image.asset('assets/images/icon_support.png'),
+                    title: const Text('Support',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F39),
+                        fontFamily: "PoppinsSemiBold",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      )
+                    ),
+                    
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const Divider(
+                    height: 10.0,
+                    color: Color(0xFF373737),
+                    indent: 40.0,
+                    endIndent: 40.0,
+                  ),
+                  ListTile(
+                    horizontalTitleGap: 0.0,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    leading: Image.asset('assets/images/icon_policy.png'),
+                    title: const Text('Policy',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F39),
+                        fontFamily: "PoppinsSemiBold",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      )
+                    ),
+                    
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const Divider(
+                    height: 10.0,
+                    color: Color(0xFF373737),
+                    indent: 40.0,
+                    endIndent: 40.0,
+                  ),
+                  ListTile(
+                    horizontalTitleGap: 0.0,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    leading: Image.asset('assets/images/icon_logout.png'),
+                    title: const Text('Logout',
+                      style: TextStyle(
+                        color: Color(0xFF1F1F39),
+                        fontFamily: "PoppinsSemiBold",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      )
+                    ),
+                    
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const Divider(
+                    height: 10.0,
+                    color: Color(0xFF373737),
+                    indent: 40.0,
+                    endIndent: 40.0,
+                  )
+                ],
+              )),
+        ),
         body: SingleChildScrollView(
           child: Column(children: [
             Container(
@@ -94,12 +261,11 @@ class _categoriesState extends State<categories> {
                             ),
                             InkWell(
                               onTap: () {
-                                _scaffoldKey.currentState!.openDrawer();
+                                _scaffoldKey.currentState!.openEndDrawer();
                               },
                               child:
                                   Image.asset('assets/images/p_img_small.png'),
                             ),
-                            // Image.asset('assets/images/p_img_small.png')
                           ]),
                     ),
                     Padding(

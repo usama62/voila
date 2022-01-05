@@ -10,7 +10,6 @@ class subCategories extends StatefulWidget {
 }
 
 class _subCategoriesState extends State<subCategories> {
-  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
