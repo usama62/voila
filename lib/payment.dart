@@ -1,6 +1,5 @@
-import 'package:flutter/gestures.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
 
 class payment extends StatefulWidget {
   const payment({
@@ -12,6 +11,7 @@ class payment extends StatefulWidget {
 }
 
 class _paymentState extends State<payment> {
+  bool isSwitched = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +37,22 @@ class _paymentState extends State<payment> {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(" Payment Detail",
-                style: TextStyle(
-                  fontFamily: "PoppinsSemiBold",
-                color: Color(0xFF373737),
-                fontWeight: FontWeight.w600,
-                fontSize: 12.0
+            Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    " Payment Detail",
+                    style: TextStyle(
+                        fontFamily: "PoppinsSemiBold",
+                        color: Color(0xFF373737),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12.0),
+                  ),
                 ),
-              ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -69,20 +73,49 @@ class _paymentState extends State<payment> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        children: [
+                          Transform.scale(
+                            scale: 0.5,
+                            child: CupertinoSwitch(
+                              value: isSwitched,
+                              activeColor: const Color(0xFFEE8823),
+                              onChanged: (value) {
+                                setState(() {
+                                  isSwitched = value;
+                                });
+                              },
+                            ),
+                          ),
+                          const Text(
+                            "Save card information.",
+                            style: TextStyle(
+                                fontFamily: "PoppinsSemiBold",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF38385E)),
+                          )
+                        ],
+                      ),
                       const Padding(
                         padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
+                          style: TextStyle(
+                              fontFamily: "PoppinsSemiBold",
+                              color: Color(0xFF38385E),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Color(0xff36BDA4))),
+                                    BorderSide(color: Color(0xFF373737))),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Color(0xff36BDA4))),
-                            labelText: 'Name',
+                                    BorderSide(color: Color(0xFF373737))),
+                            labelText: 'Card holder’s name',
                             labelStyle: TextStyle(
                                 fontFamily: "PoppinsSemiBold",
-                                color: Color(0xff373737),
+                                color: Color(0xFF1F1F39),
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -91,46 +124,104 @@ class _paymentState extends State<payment> {
                       const Padding(
                         padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
+                          style: TextStyle(
+                              fontFamily: "PoppinsSemiBold",
+                              color: Color(0xFF38385E),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Color(0xff36BDA4))),
+                                    BorderSide(color: Color(0xFF373737))),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Color(0xff36BDA4))),
-                            labelText: 'Email',
+                                    BorderSide(color: Color(0xFF373737))),
+                            labelText: 'Card number',
                             labelStyle: TextStyle(
                                 fontFamily: "PoppinsSemiBold",
-                                color: Color(0xff373737),
+                                color: Color(0xFF1F1F39),
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600),
                           ),
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                        child: Row(children: const [
+                          Flexible(
+                            child: TextField(
+                              style: TextStyle(
+                                  fontFamily: "PoppinsSemiBold",
+                                  color: Color(0xFF38385E),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400),
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFF373737))),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFF373737))),
+                                labelText: 'Valid till',
+                                labelStyle: TextStyle(
+                                    fontFamily: "PoppinsSemiBold",
+                                    color: Color(0xFF1F1F39),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          Flexible(
+                            child: TextField(
+                              style: TextStyle(
+                                  fontFamily: "PoppinsSemiBold",
+                                  color: Color(0xFF38385E),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400),
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFF373737))),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFF373737))),
+                                labelText: 'CVV',
+                                labelStyle: TextStyle(
+                                    fontFamily: "PoppinsSemiBold",
+                                    color: Color(0xFF1F1F39),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                          )
+                        ]),
+                      )
                     ],
                   )),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35.0, 0.0, 35.0, 0.0),
-              child: SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF36BDA4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )),
-                  onPressed: () {},
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontFamily: 'PoppinsSemiBold',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                  ),
+            SizedBox(
+              height: 50,
+              width: 155.0,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFFEE8823),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    )),
+                onPressed: () {},
+                child: const Text(
+                  'Next',
+                  style: TextStyle(
+                      color: Color(0xFFFFFFFF),
+                      fontFamily: 'PoppinsSemiBold',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),
