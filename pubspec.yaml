@@ -101,6 +101,10 @@ flutter:
     - assets/images/ashley.png
     - assets/images/molly.png
     - assets/images/icon_payment_success.png
+    - assets/images/icon_location.png
+    - assets/images/icon_star.png
+    - assets/images/icon_edit.png
+    - assets/images/worker.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

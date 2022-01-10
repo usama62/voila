@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class categories extends StatefulWidget {
-  const categories({
+class Categories extends StatefulWidget {
+  const Categories({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<categories> createState() => _categoriesState();
+  State<Categories> createState() => _CategoriesState();
 }
 
-class _categoriesState extends State<categories> {
+class _CategoriesState extends State<Categories> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   somemethod() {}
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'login.dart';
-import 'signup.dart';
-import 'payment_success.dart'; //just to open  this screen
+import 'Signup.dart';
+import 'Booking.dart'; //just to open  this screen
 
 void main() {
   runApp(const MyApp());
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const payment_success()),
+                            builder: (context) => const Booking()),
                       );
                     },
                     child: const Text(
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const signup()));
+                              builder: (context) => const Signup()));
                     },
                     child: const Text(
                       'Sign up',

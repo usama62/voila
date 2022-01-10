@@ -1,17 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'Login.dart';
 
-class signup extends StatefulWidget {
-  const signup({
+class Signup extends StatefulWidget {
+  const Signup({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<signup> createState() => _signupState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _signupState extends State<signup> {
+class _SignupState extends State<Signup> {
   String password = '';
   String conpassword = '';
   bool isPassVisible = false;
@@ -76,7 +76,7 @@ class _signupState extends State<signup> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const login()));
+                                          builder: (context) => const Login()));
                                 },
                               style: const TextStyle(
                                 color: Color(0xffee8823),

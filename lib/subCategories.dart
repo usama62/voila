@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class subCategories extends StatefulWidget {
-  const subCategories({
+class SubCategories extends StatefulWidget {
+  const SubCategories({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<subCategories> createState() => _subCategoriesState();
+  State<SubCategories> createState() => _SubCategoriesState();
 }
 
-class _subCategoriesState extends State<subCategories> {
+class _SubCategoriesState extends State<SubCategories> {
 
   @override
   Widget build(BuildContext context) {

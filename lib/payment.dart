@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class payment extends StatefulWidget {
-  const payment({
+class Payment extends StatefulWidget {
+  const Payment({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<payment> createState() => _paymentState();
+  State<Payment> createState() => _PaymentState();
 }
 
-class _paymentState extends State<payment> {
+class _PaymentState extends State<Payment> {
   bool isSwitched = true;
   @override
   Widget build(BuildContext context) {
