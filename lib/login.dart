@@ -1,6 +1,9 @@
+import 'dart:convert';
+import 'Global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'Signup.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({
@@ -12,6 +15,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  _login() async {
+    Map<String, String> body = {
+      "email": _emailAddressController.text,
+      "password": _passwordController.text,
+    };
+
+    http.Response response = await http.post(Global.getLoginUrl(),
+        body: jsonEncode(body), headers: Global.getCustomizedHeader());
+    print(jsonData);
+  }
+
   String password = '';
   bool isPassVisible = false;
 
@@ -191,7 +205,9 @@ class _LoginState extends State<Login> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 )),
-                            onPressed: () {},
+                            onPressed: () {
+                              _login();
+                            },
                             child: const Text(
                               'Log in',
                               style: TextStyle(
