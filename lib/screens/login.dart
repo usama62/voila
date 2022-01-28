@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
-import 'Global.dart';
+import 'package:voila/constants/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'Signup.dart';
 import 'package:http/http.dart' as http;
+import 'package:voila/utils/helpers/validation_helper.dart';
+import 'package:voila/screens/custom/CustomSnackbar.dart';
 
 class Login extends StatefulWidget {
   const Login({
@@ -14,16 +18,95 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+
+
 class _LoginState extends State<Login> {
+  TextEditingController _emailController = TextEditingController ();
+  TextEditingController _passwordController = TextEditingController ();
+  TextEditingController _forgetPasswordController = TextEditingController ();
+
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _forgetPasswordController = TextEditingController();
+    super.initState();
+  }
+
   _login() async {
     Map<String, String> body = {
-      "email": _emailAddressController.text,
+      "username": _emailController.text,
       "password": _passwordController.text,
     };
 
-    http.Response response = await http.post(Global.getLoginUrl(),
-        body: jsonEncode(body), headers: Global.getCustomizedHeader());
-    print(jsonData);
+    final uri = Uri.http(Global.baseUrl,'/apis/login', body);
+    Map<String, String> requestHeaders = {
+       'Content-type': 'application/json',
+       'Accept': 'application/json',
+       'Authorization': '<Your token>'
+    };
+    final response = await http.get(uri, headers: requestHeaders);
+
+    // http.Response response = await http.post(Global.getLoginUrl(),
+    //     body: body);
+    return response;
+  }
+
+  void loginBtnListener() async {
+    try {
+      if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+        var response = await _login();
+        print(response);
+        if (response['status'] == true && response['code'] == 200) {
+        }
+        else if(!response['status']) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
+        }
+      } else {
+        if (_passwordController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            CustomSnackbar.showSnackbar('Please enter valid password!'));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            CustomSnackbar.showSnackbar('Please enter valid email address!'));
+      }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future handleForgetPassword(setState) async {
+    String msg = "";
+    String email = _forgetPasswordController.text;
+    Map<String, String> body = {
+      "email": email,
+    };
+    try {
+      if (email.isNotEmpty && ValidationHelper.validateEmail(email) == null) {
+        http.Response response = await http.post(
+            Global.getForgetPasswordUrl(),
+            body: jsonEncode(body),
+            headers: Global.getCustomizedHeader());
+        var responseBody = jsonDecode(response.body);
+        if (responseBody["status"] && responseBody["code"] == 200) {
+          msg = responseBody["message"];
+          Navigator.pop(context);
+        } else {
+          msg = "User not found, Please check your email";
+        }
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackbar.showSnackbar(msg));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            CustomSnackbar.showSnackbar("Please enter valid email address"));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          CustomSnackbar.showSnackbar("Error while generating link"));
+    } finally {
+    }
   }
 
   String password = '';
@@ -73,7 +156,7 @@ class _LoginState extends State<Login> {
                           ),
                           children: [
                             const TextSpan(
-                              text: 'Welcome back!\nDon’t have an account',
+                              text: "Welcome back!\nDon’t have an account",
                             ),
                             const TextSpan(
                               text: '? ',
@@ -126,17 +209,17 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xff36BDA4))),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xff36BDA4))),
-                              labelText: 'Phone number',
+                              labelText: 'Email Address',
                               labelStyle: TextStyle(
                                   fontFamily: "PoppinsSemiBold",
                                   color: Color(0xff373737),
@@ -146,13 +229,15 @@ class _LoginState extends State<Login> {
                                 AssetImage('assets/images/icon_phone.png'),
                               ),
                               suffixStyle: TextStyle(color: Colors.green)),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.emailAddress,
+                          controller: _emailController,
                         ),
                       ),
                       Padding(
                         padding:
                             const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
+                          controller: _passwordController,
                           decoration: InputDecoration(
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide:
@@ -206,7 +291,7 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 )),
                             onPressed: () {
-                              _login();
+                              loginBtnListener();
                             },
                             child: const Text(
                               'Log in',
