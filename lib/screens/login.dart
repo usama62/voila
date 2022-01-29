@@ -1,12 +1,10 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
+
 import 'package:voila/constants/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'Signup.dart';
 import 'package:http/http.dart' as http;
-import 'package:voila/utils/helpers/validation_helper.dart';
 import 'package:voila/screens/custom/CustomSnackbar.dart';
 
 class Login extends StatefulWidget {
@@ -18,12 +16,10 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-
-
 class _LoginState extends State<Login> {
-  TextEditingController _emailController = TextEditingController ();
-  TextEditingController _passwordController = TextEditingController ();
-  TextEditingController _forgetPasswordController = TextEditingController ();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _forgetPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -34,78 +30,36 @@ class _LoginState extends State<Login> {
   }
 
   _login() async {
-    Map<String, String> body = {
-      "username": _emailController.text,
-      "password": _passwordController.text,
-    };
-
-    final uri = Uri.http(Global.baseUrl,'/apis/login', body);
-    Map<String, String> requestHeaders = {
-       'Content-type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': '<Your token>'
-    };
-    final response = await http.get(uri, headers: requestHeaders);
-
-    // http.Response response = await http.post(Global.getLoginUrl(),
-    //     body: body);
+    final uri = Uri.parse(
+        "https://${Global.baseUrl}/apis/login.php?username=${_emailController.text}&password=${_passwordController.text}");
+    final http.Response response = await http.get(uri);
     return response;
   }
 
   void loginBtnListener() async {
     try {
-      if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      if (_emailController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty) {
         var response = await _login();
-        print(response);
-        if (response['status'] == true && response['code'] == 200) {
-        }
-        else if(!response['status']) {
+        var responseBody = jsonDecode(response.body);
+
+        if (response.statusCode == 200) {
+          print(responseBody['id']);
+        } else if (!response['status']) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
         }
       } else {
         if (_passwordController.text.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            CustomSnackbar.showSnackbar('Please enter valid password!'));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            CustomSnackbar.showSnackbar('Please enter valid email address!'));
-      }
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid password!'));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid email address!'));
+        }
       }
     } catch (e) {
       print(e);
-    }
-  }
-
-  Future handleForgetPassword(setState) async {
-    String msg = "";
-    String email = _forgetPasswordController.text;
-    Map<String, String> body = {
-      "email": email,
-    };
-    try {
-      if (email.isNotEmpty && ValidationHelper.validateEmail(email) == null) {
-        http.Response response = await http.post(
-            Global.getForgetPasswordUrl(),
-            body: jsonEncode(body),
-            headers: Global.getCustomizedHeader());
-        var responseBody = jsonDecode(response.body);
-        if (responseBody["status"] && responseBody["code"] == 200) {
-          msg = responseBody["message"];
-          Navigator.pop(context);
-        } else {
-          msg = "User not found, Please check your email";
-        }
-        ScaffoldMessenger.of(context)
-            .showSnackBar(CustomSnackbar.showSnackbar(msg));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            CustomSnackbar.showSnackbar("Please enter valid email address"));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          CustomSnackbar.showSnackbar("Error while generating link"));
-    } finally {
     }
   }
 
@@ -210,7 +164,8 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
                           decoration: const InputDecoration(
                               enabledBorder: UnderlineInputBorder(

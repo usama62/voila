@@ -1,6 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'Login.dart';
+import 'package:http/http.dart' as http;
+import 'package:voila/constants/Global.dart';
+import 'package:voila/screens/custom/CustomSnackbar.dart';
+import 'package:voila/screens/CreateProfile.dart';
+import 'package:localstorage/localstorage.dart';
 
 class Signup extends StatefulWidget {
   const Signup({
@@ -12,10 +19,70 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final storage = new LocalStorage('user_data');
   String password = '';
   String conpassword = '';
   bool isPassVisible = false;
   bool isConPassVisible = false;
+
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmpassController = TextEditingController();
+
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _usernameController = TextEditingController();
+    _confirmpassController = TextEditingController();
+    super.initState();
+  }
+
+  _signup() async {
+    final uri = Uri.parse(
+        "https://${Global.baseUrl}/apis/register.php?username=${_emailController.text}&password=${_passwordController.text}&name=${_usernameController.text}");
+    final http.Response response = await http.get(uri);
+    return response;
+  }
+
+  void signupBtnListener() async {
+    try {
+      if (_emailController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty &&
+          _usernameController.text.isNotEmpty) {
+        if (_passwordController.text == _confirmpassController.text) {
+          var response = await _signup();
+          var responseBody = jsonDecode(response.body);
+
+          if (response.statusCode == 200 && responseBody['login'] == true) {
+            storage.setItem("user_data", responseBody);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CreateProfile()));
+          } else if (!response['status']) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar("Password doesn't match!"));
+        }
+      } else {
+        if (_passwordController.text.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid password!'));
+        } else if (_emailController.text.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid email address!'));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid username!'));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +180,12 @@ class _SignupState extends State<Signup> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: _usernameController,
+                          decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Color(0xff36BDA4))),
@@ -132,10 +201,11 @@ class _SignupState extends State<Signup> {
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Color(0xff36BDA4))),
@@ -150,12 +220,14 @@ class _SignupState extends State<Signup> {
                                 fontWeight: FontWeight.w600),
                           ),
                           keyboardType: TextInputType.emailAddress,
+                          controller: _emailController,
                         ),
                       ),
                       Padding(
                         padding:
                             const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
                         child: TextField(
+                          controller: _passwordController,
                           decoration: InputDecoration(
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide:
@@ -190,6 +262,7 @@ class _SignupState extends State<Signup> {
                         padding:
                             const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                         child: TextField(
+                          controller: _confirmpassController,
                           decoration: InputDecoration(
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide:
@@ -234,7 +307,9 @@ class _SignupState extends State<Signup> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       )),
-                  onPressed: () {},
+                  onPressed: () {
+                    signupBtnListener();
+                  },
                   child: const Text(
                     'Sign Up',
                     style: TextStyle(

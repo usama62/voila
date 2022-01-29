@@ -1,4 +1,4 @@
-class Global{
+class Global {
   static const String baseUrl = "voilapro.nl";
   static const String _login = "/apis/login";
   static const String _forgetPassword = "/forgot_password";
@@ -12,9 +12,6 @@ class Global{
   static Uri getProfileUrl() => Uri.parse('$baseUrl$_profile');
   static Uri getUpdateProfileUrl() => Uri.parse('$baseUrl$_updateProfile');
 
-
-  
   static Map<String, String> getCustomizedHeader() =>
       {'Content-type': 'application/json', 'Accept': 'application/json'};
-
 }
