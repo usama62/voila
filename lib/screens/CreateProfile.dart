@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:voila/screens/custom/CustomSnackbar.dart';
+import 'package:voila/constants/Global.dart';
+import 'dart:convert';
 
 class CreateProfile extends StatefulWidget {
   const CreateProfile({
@@ -12,12 +16,48 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  final storage = new LocalStorage('user_data');
+  TextEditingController _remoteController = TextEditingController();
+  TextEditingController _jobTitleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  final storage = LocalStorage('user_data');
+
   @override
-  initState() async {
+  void initState() {
+    _remoteController = TextEditingController();
+    _jobTitleController = TextEditingController();
+    _descriptionController = TextEditingController();
     super.initState();
-    print("print from create prfile");
-    print(storage.getItem("user_data"));
+  }
+
+  _saveProfile() async {
+    final uri = Uri.parse(
+        "https://${Global.baseUrl}/apis/get_profile.php?id=2&remote=${_remoteController.text}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
+    final http.Response response = await http.get(uri);
+    return response;
+  }
+
+  void profileBtnListener() async {
+    try {
+      if (_remoteController.text.isNotEmpty &&
+          _jobTitleController.text.isNotEmpty &&
+          _jobTitleController.text.isNotEmpty &&
+          _descriptionController.text.isNotEmpty) {
+        var response = await _saveProfile();
+        var responseBody = jsonDecode(response.body);
+
+        if (response.statusCode == 200) {
+          print(responseBody['id']);
+        } else if (!response['status']) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
+        }
+      } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please fill all fields!'));
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   bool isSwitched = false;
@@ -88,6 +128,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                       color: Color(0xFF36BDA4), width: 1.0),
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
+                            controller: _jobTitleController,
                           )),
                       const Align(
                         alignment: Alignment.centerLeft,
@@ -118,6 +159,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                       color: Color(0xFF36BDA4), width: 1.0),
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
+                            controller: _descriptionController,
                           )),
                       Row(
                         children: [
@@ -143,7 +185,32 @@ class _CreateProfileState extends State<CreateProfile> {
                                 color: Color(0xFF707070)),
                           )
                         ],
-                      )
+                      ),
+                      Padding(
+              padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 0.0),
+              child: SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: const Color(0xFF36BDA4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
+                  onPressed: () {
+                    profileBtnListener();
+                  },
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontFamily: 'PoppinsSemiBold',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ),
                     ],
                   ),
                 ],

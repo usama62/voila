@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 
 class Categories extends StatefulWidget {
   const Categories({
@@ -10,8 +11,17 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
+  final storage = LocalStorage('user_data');
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  
   somemethod() {}
+
+  @override
+  void initState() {
+    super.initState();
+    print("object");
+    print(storage.getItem("user_data"));
+  }
 
   @override
   Widget build(BuildContext context) {

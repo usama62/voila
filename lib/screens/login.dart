@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:voila/constants/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'Signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/CustomSnackbar.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:voila/screens/Categories.dart';
 
 class Login extends StatefulWidget {
   const Login({
@@ -17,6 +18,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final storage = LocalStorage('user_data');
+
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _forgetPasswordController = TextEditingController();
@@ -43,8 +46,13 @@ class _LoginState extends State<Login> {
         var response = await _login();
         var responseBody = jsonDecode(response.body);
 
-        if (response.statusCode == 200) {
-          print(responseBody['id']);
+
+        if (response.statusCode == 200 && responseBody['login'] == 'true') {
+            print("inside");
+            storage.setItem("user_data", responseBody);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Categories()));
+          
         } else if (!response['status']) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));

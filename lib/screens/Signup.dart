@@ -19,7 +19,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final storage = new LocalStorage('user_data');
+  final storage = LocalStorage('user_data');
   String password = '';
   String conpassword = '';
   bool isPassVisible = false;
@@ -55,7 +55,7 @@ class _SignupState extends State<Signup> {
           var response = await _signup();
           var responseBody = jsonDecode(response.body);
 
-          if (response.statusCode == 200 && responseBody['login'] == true) {
+          if (response.statusCode == 200 && responseBody['login'] == "true") {
             storage.setItem("user_data", responseBody);
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const CreateProfile()));
