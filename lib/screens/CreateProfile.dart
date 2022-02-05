@@ -52,8 +52,8 @@ class _CreateProfileState extends State<CreateProfile> {
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
         }
       } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              CustomSnackbar.showSnackbar('Please fill all fields!'));
+        ScaffoldMessenger.of(context).showSnackBar(
+            CustomSnackbar.showSnackbar('Please fill all fields!'));
       }
     } catch (e) {
       print(e);
@@ -167,7 +167,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           Transform.scale(
                             scale: 0.6,
                             child: CupertinoSwitch(
-                              value: isSwitched,
+                              value: !isSwitched,
                               activeColor: const Color(0xFFEE8823),
                               onChanged: (value) {
                                 setState(() {
@@ -187,30 +187,31 @@ class _CreateProfileState extends State<CreateProfile> {
                         ],
                       ),
                       Padding(
-              padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 0.0),
-              child: SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF36BDA4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )),
-                  onPressed: () {
-                    profileBtnListener();
-                  },
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontFamily: 'PoppinsSemiBold',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ),
+                        padding:
+                            const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 0.0),
+                        child: SizedBox(
+                          height: 40,
+                          width: double.infinity,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: const Color(0xFF36BDA4),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                            onPressed: () {
+                              profileBtnListener();
+                            },
+                            child: const Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontFamily: 'PoppinsSemiBold',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],

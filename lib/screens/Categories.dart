@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:voila/screens/CreateProfile.dart';
 
 class Categories extends StatefulWidget {
   const Categories({
@@ -13,7 +14,7 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   final storage = LocalStorage('user_data');
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  
+
   somemethod() {}
 
   @override
@@ -30,9 +31,8 @@ class _CategoriesState extends State<Categories> {
         backgroundColor: const Color(0xFFFFFFFF),
         endDrawer: ClipRRect(
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            bottomLeft: Radius.circular(20.0)
-            ),
+              topLeft: Radius.circular(20.0),
+              bottomLeft: Radius.circular(20.0)),
           child: Drawer(
               backgroundColor: const Color(0xFFFFFFFF),
               child: ListView(
@@ -48,8 +48,10 @@ class _CategoriesState extends State<Categories> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-                              child: Image.asset('assets/images/p_img_small.png'),
+                              padding: const EdgeInsets.fromLTRB(
+                                  20.0, 0.0, 20.0, 20.0),
+                              child:
+                                  Image.asset('assets/images/p_img_small.png'),
                             ),
                           ],
                         ),
@@ -70,8 +72,10 @@ class _CategoriesState extends State<Categories> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                                  child: Image.asset("assets/images/icon_money_check.png"),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      0.0, 0.0, 5.0, 0.0),
+                                  child: Image.asset(
+                                      "assets/images/icon_money_check.png"),
                                 ),
                                 const Text(
                                   "0 Credits",
@@ -87,22 +91,22 @@ class _CategoriesState extends State<Categories> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextButton(
-                                  style: TextButton.styleFrom(
-                                      backgroundColor: const Color(0xFFEE8823),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      )),
-                                  onPressed: somemethod,
-                                  child: const Text(
-                                    "Buy Credits",
-                                    style: TextStyle(
-                                        color: Color(0xFFFFFFFF),
-                                        fontFamily: "PoppinsSemiBold",
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
-                                  )
-                                )
+                                    style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFFEE8823),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        )),
+                                    onPressed: somemethod,
+                                    child: const Text(
+                                      "Buy Credits",
+                                      style: TextStyle(
+                                          color: Color(0xFFFFFFFF),
+                                          fontFamily: "PoppinsSemiBold",
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400),
+                                    ))
                               ],
                             ),
                           ],
@@ -112,19 +116,20 @@ class _CategoriesState extends State<Categories> {
                   ),
                   ListTile(
                     horizontalTitleGap: 0.0,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 40.0),
                     leading: Image.asset('assets/images/icon_profile.png'),
                     title: const Text('Profile',
-                      style: TextStyle(
-                        color: Color(0xFF1F1F39),
-                        fontFamily: "PoppinsSemiBold",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400
-                      )
-                    ),
-                    
+                        style: TextStyle(
+                            color: Color(0xFF1F1F39),
+                            fontFamily: "PoppinsSemiBold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)),
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CreateProfile()));
                     },
                   ),
                   const Divider(
@@ -135,17 +140,15 @@ class _CategoriesState extends State<Categories> {
                   ),
                   ListTile(
                     horizontalTitleGap: 0.0,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 40.0),
                     leading: Image.asset('assets/images/icon_setting.png'),
                     title: const Text('Setting',
-                      style: TextStyle(
-                        color: Color(0xFF1F1F39),
-                        fontFamily: "PoppinsSemiBold",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400
-                      )
-                    ),
-                    
+                        style: TextStyle(
+                            color: Color(0xFF1F1F39),
+                            fontFamily: "PoppinsSemiBold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)),
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -158,17 +161,15 @@ class _CategoriesState extends State<Categories> {
                   ),
                   ListTile(
                     horizontalTitleGap: 0.0,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 40.0),
                     leading: Image.asset('assets/images/icon_support.png'),
                     title: const Text('Support',
-                      style: TextStyle(
-                        color: Color(0xFF1F1F39),
-                        fontFamily: "PoppinsSemiBold",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400
-                      )
-                    ),
-                    
+                        style: TextStyle(
+                            color: Color(0xFF1F1F39),
+                            fontFamily: "PoppinsSemiBold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)),
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -181,17 +182,15 @@ class _CategoriesState extends State<Categories> {
                   ),
                   ListTile(
                     horizontalTitleGap: 0.0,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 40.0),
                     leading: Image.asset('assets/images/icon_policy.png'),
                     title: const Text('Policy',
-                      style: TextStyle(
-                        color: Color(0xFF1F1F39),
-                        fontFamily: "PoppinsSemiBold",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400
-                      )
-                    ),
-                    
+                        style: TextStyle(
+                            color: Color(0xFF1F1F39),
+                            fontFamily: "PoppinsSemiBold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)),
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -204,17 +203,15 @@ class _CategoriesState extends State<Categories> {
                   ),
                   ListTile(
                     horizontalTitleGap: 0.0,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 40.0),
                     leading: Image.asset('assets/images/icon_logout.png'),
                     title: const Text('Logout',
-                      style: TextStyle(
-                        color: Color(0xFF1F1F39),
-                        fontFamily: "PoppinsSemiBold",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400
-                      )
-                    ),
-                    
+                        style: TextStyle(
+                            color: Color(0xFF1F1F39),
+                            fontFamily: "PoppinsSemiBold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)),
                     onTap: () {
                       Navigator.pop(context);
                     },

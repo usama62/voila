@@ -39,6 +39,13 @@ class _LoginState extends State<Login> {
     return response;
   }
 
+  _getProfile($id) async {
+    final uri =
+        Uri.parse("https://${Global.baseUrl}/apis/get_profile.php?id=${$id}");
+    final http.Response response = await http.get(uri);
+    return response;
+  }
+
   void loginBtnListener() async {
     try {
       if (_emailController.text.isNotEmpty &&
@@ -46,13 +53,15 @@ class _LoginState extends State<Login> {
         var response = await _login();
         var responseBody = jsonDecode(response.body);
 
-
         if (response.statusCode == 200 && responseBody['login'] == 'true') {
-            print("inside");
-            storage.setItem("user_data", responseBody);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Categories()));
-          
+          var profile = await _getProfile(responseBody['id']);
+          var profileresponseBody = jsonDecode(profile.body);
+          if (response.statusCode == 200) {
+            print(profileresponseBody);
+          }
+          storage.setItem("user_data", responseBody);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Categories()));
         } else if (!response['status']) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
