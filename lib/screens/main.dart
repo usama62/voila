@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 // import 'login.dart';
+import 'Categories.dart';
 import 'Signup.dart';
 import 'Login.dart'; //just to open  this screen
 
@@ -34,9 +36,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final storage = LocalStorage('user_data');
+
   @override
   void initState() {
     super.initState();
+    var data = storage.getItem('user_data');
+    if (data != null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Categories()));
+    }
   }
 
   @override

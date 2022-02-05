@@ -57,9 +57,8 @@ class _LoginState extends State<Login> {
           var profile = await _getProfile(responseBody['id']);
           var profileresponseBody = jsonDecode(profile.body);
           if (response.statusCode == 200) {
-            print(profileresponseBody);
+            storage.setItem("user_data", profileresponseBody);
           }
-          storage.setItem("user_data", responseBody);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const Categories()));
         } else if (!response['status']) {

@@ -12,21 +12,9 @@ class ValidationHelper {
     }
   }
 
-  static String validatePhoneNo(String value) {
-    String pattern = r'/^(?:[+0]9)?[0-9]{10}$/';
-    RegExp regex = RegExp(pattern);
-    if (!regex.hasMatch(value)) {
-      return 'Enter Valid Phone Number';
-    } else {
-      return " ";
-    }
-  }
-
   static bool validatePassword(String value) {
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
     RegExp regex = RegExp(pattern);
-    print(regex.hasMatch(value));
     return regex.hasMatch(value);
   }
 }

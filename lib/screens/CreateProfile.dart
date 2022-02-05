@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/CustomSnackbar.dart';
 import 'package:voila/constants/Global.dart';
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
+
+import 'Categories.dart';
 
 class CreateProfile extends StatefulWidget {
   const CreateProfile({
@@ -19,34 +24,43 @@ class _CreateProfileState extends State<CreateProfile> {
   TextEditingController _remoteController = TextEditingController();
   TextEditingController _jobTitleController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
+
+  String profileImage = "";
+
+  final ImagePicker _picker = ImagePicker();
   final storage = LocalStorage('user_data');
 
   @override
   void initState() {
-    _remoteController = TextEditingController();
     _jobTitleController = TextEditingController();
     _descriptionController = TextEditingController();
+
     super.initState();
   }
 
-  _saveProfile() async {
-    final uri = Uri.parse(
-        "https://${Global.baseUrl}/apis/get_profile.php?id=2&remote=${_remoteController.text}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
+  Future _saveProfile() async {
+    var uri = Uri.parse(
+        "https://${Global.baseUrl}/apis/edit_profile.php?id=2&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
+    if (profileImage != "") {
+      String img64 = base64Encode(File(profileImage).readAsBytesSync());
+      uri = Uri.parse(
+          "https://${Global.baseUrl}/apis/edit_profile.php?id=2&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
+    }
     final http.Response response = await http.get(uri);
+    print(jsonDecode(response.body));
     return response;
   }
 
   void profileBtnListener() async {
     try {
-      if (_remoteController.text.isNotEmpty &&
-          _jobTitleController.text.isNotEmpty &&
-          _jobTitleController.text.isNotEmpty &&
+      if (_jobTitleController.text.isNotEmpty &&
           _descriptionController.text.isNotEmpty) {
         var response = await _saveProfile();
         var responseBody = jsonDecode(response.body);
 
         if (response.statusCode == 200) {
-          print(responseBody['id']);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Categories()));
         } else if (!response['status']) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
@@ -60,7 +74,65 @@ class _CreateProfileState extends State<CreateProfile> {
     }
   }
 
-  bool isSwitched = false;
+  bool isSwitched = true;
+
+  Future<void> _displayPickImageDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Select option to pick image'),
+            content: Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () async {
+                    XFile? image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    setState(() {
+                      if (image != null) {
+                        profileImage = image.path;
+                      }
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Row(
+                    children: const [
+                      Text("Pick image from Gallery",
+                          style: TextStyle(
+                              fontFamily: "PoppinsSemiBold",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF1F1F39))),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    final XFile? photo =
+                        await _picker.pickImage(source: ImageSource.camera);
+                    setState(() {
+                      if (photo != null) {
+                        profileImage = photo.path;
+                      }
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Row(
+                    children: const [
+                      Text("Capture image",
+                          style: TextStyle(
+                              fontFamily: "PoppinsSemiBold",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF1F1F39))),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +239,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           Transform.scale(
                             scale: 0.6,
                             child: CupertinoSwitch(
-                              value: !isSwitched,
+                              value: isSwitched,
                               activeColor: const Color(0xFFEE8823),
                               onChanged: (value) {
                                 setState(() {
@@ -202,7 +274,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               profileBtnListener();
                             },
                             child: const Text(
-                              'Sign Up',
+                              'Save',
                               style: TextStyle(
                                   color: Color(0xFFFFFFFF),
                                   fontFamily: 'PoppinsSemiBold',
@@ -219,7 +291,18 @@ class _CreateProfileState extends State<CreateProfile> {
             ),
             Positioned(
                 top: 30,
-                child: Center(child: Image.asset("assets/images/avatar.png"))),
+                child: GestureDetector(
+                    onTap: () async {
+                      _displayPickImageDialog();
+                    },
+                    child: Center(
+                        child: profileImage.isEmpty
+                            ? Image.asset("assets/images/avatar.png")
+                            : Image.file(
+                                File(profileImage),
+                                width: 70,
+                                height: 70,
+                              )))),
           ]),
         ));
   }

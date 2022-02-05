@@ -20,8 +20,8 @@ class _CategoriesState extends State<Categories> {
   @override
   void initState() {
     super.initState();
-    print("object");
-    print(storage.getItem("user_data"));
+    var data = storage.getItem('user_data');
+    print(data);
   }
 
   @override
