@@ -21,7 +21,6 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  TextEditingController _remoteController = TextEditingController();
   TextEditingController _jobTitleController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
 
@@ -296,13 +295,22 @@ class _CreateProfileState extends State<CreateProfile> {
                       _displayPickImageDialog();
                     },
                     child: Center(
-                        child: profileImage.isEmpty
-                            ? Image.asset("assets/images/avatar.png")
-                            : Image.file(
-                                File(profileImage),
-                                width: 70,
-                                height: 70,
-                              )))),
+                        child: Container(
+                      height: 135,
+                      width: 135,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: profileImage.isEmpty
+                                ? const AssetImage("assets/images/avatar.png")
+                                : Image.file(
+                                    File(profileImage),
+                                    width: 70,
+                                    height: 70,
+                                  ).image,
+                            fit: BoxFit.fill),
+                      ),
+                    )))),
           ]),
         ));
   }
