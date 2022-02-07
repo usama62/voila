@@ -33,20 +33,21 @@ class _CreateProfileState extends State<CreateProfile> {
   void initState() {
     _jobTitleController = TextEditingController();
     _descriptionController = TextEditingController();
-
     super.initState();
   }
 
   Future _saveProfile() async {
+    var userData = storage.getItem('user_data');
     var uri = Uri.parse(
-        "https://${Global.baseUrl}/apis/edit_profile.php?id=2&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
+        "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
     if (profileImage != "") {
       String img64 = base64Encode(File(profileImage).readAsBytesSync());
       uri = Uri.parse(
-          "https://${Global.baseUrl}/apis/edit_profile.php?id=2&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
+          "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
     }
     final http.Response response = await http.get(uri);
-    print(jsonDecode(response.body));
+    print("profileBtnListener responseBody");
+    print(response.body);
     return response;
   }
 

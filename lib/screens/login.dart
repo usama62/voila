@@ -53,9 +53,12 @@ class _LoginState extends State<Login> {
         var response = await _login();
         var responseBody = jsonDecode(response.body);
 
+
         if (response.statusCode == 200 && responseBody['login'] == 'true') {
           var profile = await _getProfile(responseBody['id']);
           var profileresponseBody = jsonDecode(profile.body);
+          print("responseBody");
+          print(profileresponseBody);
           if (response.statusCode == 200) {
             storage.setItem("user_data", profileresponseBody);
           }
