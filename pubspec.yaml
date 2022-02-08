@@ -107,7 +107,11 @@ flutter:
     - assets/images/icon_star.png
     - assets/images/icon_edit.png
     - assets/images/worker.png
-
+    - assets/images/forgot_pass_banner.png
+    - assets/images/forgot_pass_center_img.png
+    - assets/images/ratings_banner.png
+    - assets/images/ratings_center_img.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

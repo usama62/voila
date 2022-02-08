@@ -8,7 +8,6 @@ import 'package:voila/screens/custom/custom_snackbar.dart';
 import 'package:voila/constants/global.dart';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-
 import 'categories.dart';
 
 class CreateProfile extends StatefulWidget {
@@ -39,6 +38,12 @@ class _CreateProfileState extends State<CreateProfile> {
   Future _saveProfile() async {
     var userData = storage.getItem('user_data');
     String img64 = base64Encode(File(profileImage).readAsBytesSync());
+    String remote = '';
+    if (isSwitched) {
+      remote = "true";
+    } else {
+      remote = "false";
+    }
     // var uri = Uri.parse(
     //     "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
     // if (profileImage != "") {
@@ -47,18 +52,18 @@ class _CreateProfileState extends State<CreateProfile> {
     //       "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
     // }
     // final http.Response response = await http.get(uri);
-    Map<String, Object> body = {
+    Map<String, String> body = {
       "id": userData['user_id'],
-      "remote": isSwitched,
+      "remote": remote,
       "jobTitle": _jobTitleController.text,
       "description": _descriptionController.text,
-      "image": img64
+      "image": img64,
     };
 
-    http.Response response = await http.post(Global.getUpdateProfileUrl(),
-        body: jsonEncode(body), headers: Global.getCustomizedHeader());
+    http.Response response =
+        await http.post(Global.getUpdateProfileUrl(), body: body);
     print("profileBtnListener responseBody");
-    print(body);
+    print(response.statusCode);
     return response;
   }
 

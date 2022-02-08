@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:voila/constants/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:voila/screens/forgot_pass.dart';
+import 'package:voila/screens/ratings.dart';
 import 'signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/custom_snackbar.dart';
@@ -53,12 +55,9 @@ class _LoginState extends State<Login> {
         var response = await _login();
         var responseBody = jsonDecode(response.body);
 
-
         if (response.statusCode == 200 && responseBody['login'] == 'true') {
           var profile = await _getProfile(responseBody['id']);
           var profileresponseBody = jsonDecode(profile.body);
-          print("responseBody");
-          print(profileresponseBody);
           if (response.statusCode == 200) {
             storage.setItem("user_data", profileresponseBody);
           }
@@ -242,15 +241,24 @@ class _LoginState extends State<Login> {
                           obscureText: !isPassVisible,
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
-                        child: Text(
-                          "Forgot your password?",
-                          style: TextStyle(
-                              fontFamily: 'PoppinsSemiBold',
-                              fontSize: 12,
-                              color: Color(0xffEE8823),
-                              fontWeight: FontWeight.w600),
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ForgotPass()));
+                          },
+                          child: const Text(
+                            "Forgot your password?",
+                            style: TextStyle(
+                                fontFamily: 'PoppinsSemiBold',
+                                fontSize: 12,
+                                color: Color(0xffEE8823),
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
                       Padding(

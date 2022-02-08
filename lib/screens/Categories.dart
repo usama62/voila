@@ -23,6 +23,8 @@ class _CategoriesState extends State<Categories> {
   void initState() {
     super.initState();
     var data = storage.getItem('user_data');
+    print("data");
+    print(data);
     username = data['name'];
   }
 
@@ -62,7 +64,7 @@ class _CategoriesState extends State<Categories> {
                             Row(
                               children: [
                                 Text(
-                                  username != '' ? username:"Janet Anderson",
+                                  username != '' ? username : "Janet Anderson",
                                   style: const TextStyle(
                                       color: Color(0xFF373737),
                                       fontFamily: "PoppinsSemiBold",
