@@ -4,9 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'Login.dart';
 import 'package:http/http.dart' as http;
-import 'package:voila/constants/Global.dart';
-import 'package:voila/screens/custom/CustomSnackbar.dart';
-import 'package:voila/screens/CreateProfile.dart';
+import 'package:voila/constants/global.dart';
+import 'package:voila/screens/custom/custom_snackbar.dart';
+import 'package:voila/screens/create_profile.dart';
 import 'package:localstorage/localstorage.dart';
 
 class Signup extends StatefulWidget {

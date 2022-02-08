@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:voila/screens/CreateProfile.dart';
+import 'package:voila/screens/create_profile.dart';
 
 class Categories extends StatefulWidget {
   const Categories({

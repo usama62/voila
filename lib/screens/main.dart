@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 // import 'login.dart';
-import 'Categories.dart';
-import 'Signup.dart';
+import 'categories.dart';
+import 'signup.dart';
 import 'Login.dart'; //just to open  this screen
 
 void main() {

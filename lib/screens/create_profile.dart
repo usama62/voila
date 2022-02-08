@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:voila/screens/custom/CustomSnackbar.dart';
-import 'package:voila/constants/Global.dart';
+import 'package:voila/screens/custom/custom_snackbar.dart';
+import 'package:voila/constants/global.dart';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 
-import 'Categories.dart';
+import 'categories.dart';
 
 class CreateProfile extends StatefulWidget {
   const CreateProfile({
@@ -38,16 +38,27 @@ class _CreateProfileState extends State<CreateProfile> {
 
   Future _saveProfile() async {
     var userData = storage.getItem('user_data');
-    var uri = Uri.parse(
-        "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
-    if (profileImage != "") {
-      String img64 = base64Encode(File(profileImage).readAsBytesSync());
-      uri = Uri.parse(
-          "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
-    }
-    final http.Response response = await http.get(uri);
+    String img64 = base64Encode(File(profileImage).readAsBytesSync());
+    // var uri = Uri.parse(
+    //     "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
+    // if (profileImage != "") {
+    //   String img64 = base64Encode(File(profileImage).readAsBytesSync());
+    //   uri = Uri.parse(
+    //       "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
+    // }
+    // final http.Response response = await http.get(uri);
+    Map<String, Object> body = {
+      "id": userData['user_id'],
+      "remote": isSwitched,
+      "jobTitle": _jobTitleController.text,
+      "description": _descriptionController.text,
+      "image": img64
+    };
+
+    http.Response response = await http.post(Global.getUpdateProfileUrl(),
+        body: jsonEncode(body), headers: Global.getCustomizedHeader());
     print("profileBtnListener responseBody");
-    print(response.body);
+    print(body);
     return response;
   }
 
