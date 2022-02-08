@@ -17,10 +17,13 @@ class _CategoriesState extends State<Categories> {
 
   somemethod() {}
 
+  var username = '';
+
   @override
   void initState() {
     super.initState();
     var data = storage.getItem('user_data');
+    username = data['name'];
   }
 
   @override
@@ -57,10 +60,10 @@ class _CategoriesState extends State<Categories> {
                         Column(
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Text(
-                                  "Janet Anderson",
-                                  style: TextStyle(
+                                  username != '' ? username:"Janet Anderson",
+                                  style: const TextStyle(
                                       color: Color(0xFF373737),
                                       fontFamily: "PoppinsSemiBold",
                                       fontSize: 18,
