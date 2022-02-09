@@ -23,8 +23,6 @@ class _CategoriesState extends State<Categories> {
   void initState() {
     super.initState();
     var data = storage.getItem('user_data');
-    print("data");
-    print(data);
     username = data['name'];
   }
 

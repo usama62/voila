@@ -1,3 +1,2 @@
-email validation
-password validation
-local storage
+user{id,name,email,login,image,jobtitle,description,remote}
+officer{rating}

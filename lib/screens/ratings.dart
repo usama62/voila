@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:localstorage/localstorage.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -17,41 +18,30 @@ class Ratings extends StatefulWidget {
 }
 
 class _RatingsState extends State<Ratings> {
-  TextEditingController _EmailController = TextEditingController();
   final storage = LocalStorage('user_data');
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  double ratings = 0;
 
   var username = '';
 
   @override
   void initState() {
     super.initState();
-    _EmailController = TextEditingController();
     var data = storage.getItem('user_data');
   }
 
-  Future _forgotpass() async {
+  Future _ratings() async {
     var uri = Uri.parse(
         "https://voilapro.nl/apis/forgotPassword.php?email=usama@gmail.com");
     final http.Response response = await http.get(uri);
-    // Map<String, String> body = {
-    //   "id": userData['user_id'],
-    //   "remote": remote,
-    //   "jobTitle": _jobTitleController.text,
-    //   "description": _descriptionController.text,
-    //   "image": img64,
-    // };
-    // http.Response response =
-    //     await http.post(Global.getUpdateProfileUrl(), body: body);
-    print("profileBtnListener responseBody");
-    print(response.statusCode);
     return response;
   }
 
-  void forgotpassBtnListener() async {
+  ratingBtnListener() async {
     try {
-      if (_EmailController.text.isNotEmpty) {
-        var response = await _forgotpass();
+      if (ratings > 0) {
+        var response = await _ratings();
         var responseBody = jsonDecode(response.body);
 
         if (response.statusCode == 200) {
@@ -108,8 +98,29 @@ class _RatingsState extends State<Ratings> {
               ),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RatingBar.builder(
+                initialRating: 3,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(vertical: 50,horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Color(0xFFF0902C),
+                ),
+                onRatingUpdate: (rating) {
+                  ratings = rating;
+                  print(rating);
+                },
+              )
+            ],
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
+            padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),
             child: Image.asset("assets/images/ratings_center_img.png"),
           ),
           Padding(
@@ -124,7 +135,7 @@ class _RatingsState extends State<Ratings> {
                       borderRadius: BorderRadius.circular(10.0),
                     )),
                 onPressed: () {
-                  forgotpassBtnListener();
+                  ratingBtnListener();
                 },
                 child: const Text(
                   'Rate Now',
@@ -138,7 +149,7 @@ class _RatingsState extends State<Ratings> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
             child: SizedBox(
               height: 60,
               width: double.infinity,
@@ -149,7 +160,6 @@ class _RatingsState extends State<Ratings> {
                       borderRadius: BorderRadius.circular(10.0),
                     )),
                 onPressed: () {
-                  forgotpassBtnListener();
                 },
                 child: const Text(
                   'Rate Later',
