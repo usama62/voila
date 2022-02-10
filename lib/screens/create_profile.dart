@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +23,21 @@ class _CreateProfileState extends State<CreateProfile> {
   TextEditingController _descriptionController = TextEditingController();
 
   String profileImage = "";
+  var remoteUser;
 
   final ImagePicker _picker = ImagePicker();
   final storage = LocalStorage('user_data');
 
   @override
   void initState() {
-    _jobTitleController = TextEditingController();
-    _descriptionController = TextEditingController();
+    var userData = storage.getItem('user_data');
+    remoteUser = userData;
+    _jobTitleController = TextEditingController()
+      ..text = remoteUser['jobTitle'];
+
+    _descriptionController = TextEditingController()
+      ..text = remoteUser['description'];
+
     super.initState();
   }
 
@@ -44,14 +50,7 @@ class _CreateProfileState extends State<CreateProfile> {
     } else {
       remote = "false";
     }
-    // var uri = Uri.parse(
-    //     "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}");
-    // if (profileImage != "") {
-    //   String img64 = base64Encode(File(profileImage).readAsBytesSync());
-    //   uri = Uri.parse(
-    //       "https://${Global.baseUrl}/apis/edit_profile.php?id=${userData['user_id']}&remote=${isSwitched}&jobTitle=${_jobTitleController.text}&description=${_descriptionController.text}&image=${img64}");
-    // }
-    // final http.Response response = await http.get(uri);
+
     Map<String, String> body = {
       "id": userData['user_id'],
       "remote": remote,
@@ -62,8 +61,6 @@ class _CreateProfileState extends State<CreateProfile> {
 
     http.Response response =
         await http.post(Global.getUpdateProfileUrl(), body: body);
-    print("profileBtnListener responseBody");
-    print(response.statusCode);
     return response;
   }
 
@@ -75,6 +72,7 @@ class _CreateProfileState extends State<CreateProfile> {
         var responseBody = jsonDecode(response.body);
 
         if (response.statusCode == 200) {
+          storage.setItem("user_data", responseBody);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const Categories()));
         } else if (!response['status']) {

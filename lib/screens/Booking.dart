@@ -133,7 +133,7 @@ class _BookingState extends State<Booking> {
                           child: Text("ONE TIME HOUSE CLEANING",
                               style: TextStyle(
                                   fontFamily: "PoppinsSemiBold",
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w400,
                                   color: Color(0xFF78789D))),
                         ),

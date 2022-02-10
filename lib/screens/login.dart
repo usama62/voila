@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:voila/screens/forgot_pass.dart';
 import 'package:voila/screens/ratings.dart';
+import 'package:voila/screens/tab_navigator.dart';
 import 'signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/custom_snackbar.dart';
@@ -35,16 +36,25 @@ class _LoginState extends State<Login> {
   }
 
   _login() async {
-    final uri = Uri.parse(
-        "https://${Global.baseUrl}/apis/login.php?username=${_emailController.text}&password=${_passwordController.text}");
-    final http.Response response = await http.get(uri);
+    Map<String, String> body = {
+      "username": _emailController.text,
+      "password": _passwordController.text,
+    };
+
+    http.Response response = await http.post(Global.getLoginUrl(), body: body);
+    print("login successfully");
+    print(response.statusCode);
+    print(response.body);
     return response;
   }
 
   _getProfile($id) async {
-    final uri =
-        Uri.parse("https://${Global.baseUrl}/apis/get_profile.php?id=${$id}");
-    final http.Response response = await http.get(uri);
+    Map<String, String> body = {
+      "id": $id,
+    };
+
+    http.Response response =
+        await http.post(Global.getProfileUrl(), body: body);
     return response;
   }
 
@@ -62,7 +72,7 @@ class _LoginState extends State<Login> {
             storage.setItem("user_data", profileresponseBody);
           }
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Categories()));
+              MaterialPageRoute(builder: (context) => const TabNavigator()));
         } else if (!response['status']) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));

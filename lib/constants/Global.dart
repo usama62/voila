@@ -1,9 +1,9 @@
 class Global {
   static const String baseUrl = "https://voilapro.nl";
-  static const String _login = "/apis/login";
-  static const String _forgetPassword = "/forgot_password";
-  static const String _register = "/register";
-  static const String _profile = "/get_profile.php";
+  static const String _login = "/apis/login.php";
+  static const String _forgetPassword = "/apis/forgot_password.php";
+  static const String _register = "/apis//register.php";
+  static const String _profile = "/apis/get_profile.php";
   static const String _updateProfile = "/apis/edit_profile.php";
   static const String _saveOfficerRating = "/apis/rating.php";
   static const String _getOfficerRating = "/apis/get_rating.php";
@@ -15,7 +15,8 @@ class Global {
   static Uri getForgetPasswordUrl() => Uri.parse('$baseUrl$_forgetPassword');
   static Uri getProfileUrl() => Uri.parse('$baseUrl$_profile');
   static Uri getUpdateProfileUrl() => Uri.parse('$baseUrl$_updateProfile');
-  static Uri getsaveOfficerRatingUrl() => Uri.parse('$baseUrl$_saveOfficerRating');
+  static Uri getsaveOfficerRatingUrl() =>
+      Uri.parse('$baseUrl$_saveOfficerRating');
   static Uri getOfficerRatingUrl() => Uri.parse('$baseUrl$_getOfficerRating');
   static Uri getOfficerInfoUrl() => Uri.parse('$baseUrl$_getOfficerInfo');
   static Uri getBookingUrl() => Uri.parse('$baseUrl$_booking');

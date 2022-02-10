@@ -107,7 +107,8 @@ class _RatingsState extends State<Ratings> {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemPadding: const EdgeInsets.symmetric(vertical: 50,horizontal: 4.0),
+                itemPadding:
+                    const EdgeInsets.symmetric(vertical: 50, horizontal: 4.0),
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Color(0xFFF0902C),
@@ -159,8 +160,7 @@ class _RatingsState extends State<Ratings> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     )),
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: const Text(
                   'Rate Later',
                   style: TextStyle(

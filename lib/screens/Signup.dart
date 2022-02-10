@@ -40,9 +40,17 @@ class _SignupState extends State<Signup> {
   }
 
   _signup() async {
-    final uri = Uri.parse(
-        "https://${Global.baseUrl}/apis/register.php?username=${_emailController.text}&password=${_passwordController.text}&name=${_usernameController.text}");
-    final http.Response response = await http.get(uri);
+    Map<String, String> body = {
+      "username": _emailController.text,
+      "password": _passwordController.text,
+      "name": _usernameController.text,
+    };
+
+    http.Response response =
+        await http.post(Global.getRegisterUrl(), body: body);
+    print("Sign up successfully");
+    print(response.statusCode);
+    print(response.body);
     return response;
   }
 
