@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/custom_snackbar.dart';
 import 'package:voila/constants/global.dart';
+import 'package:voila/screens/login.dart';
 import 'dart:convert';
-import 'categories.dart';
 
 class ForgotPass extends StatefulWidget {
   const ForgotPass({
@@ -17,46 +16,38 @@ class ForgotPass extends StatefulWidget {
 }
 
 class _ForgotPassState extends State<ForgotPass> {
-  TextEditingController _EmailController = TextEditingController();
   final storage = LocalStorage('user_data');
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  TextEditingController _emailController = TextEditingController();
 
   var username = '';
 
   @override
   void initState() {
     super.initState();
-    _EmailController = TextEditingController();
+    _emailController = TextEditingController();
     var data = storage.getItem('user_data');
   }
 
   Future _forgotpass() async {
-    var uri = Uri.parse(
-        "https://voilapro.nl/apis/forgotPassword.php?email=usama@gmail.com");
-    final http.Response response = await http.get(uri);
-    // Map<String, String> body = {
-    //   "id": userData['user_id'],
-    //   "remote": remote,
-    //   "jobTitle": _jobTitleController.text,
-    //   "description": _descriptionController.text,
-    //   "image": img64,
-    // };
-    // http.Response response =
-    //     await http.post(Global.getUpdateProfileUrl(), body: body);
-    print("profileBtnListener responseBody");
-    print(response.statusCode);
+    Map<String, String> body = {
+      "email": _emailController.text,
+    };
+    http.Response response =
+        await http.post(Global.getForgetPasswordUrl(), body: body);
     return response;
   }
 
   void forgotpassBtnListener() async {
     try {
-      if (_EmailController.text.isNotEmpty) {
+      if (_emailController.text.isNotEmpty) {
         var response = await _forgotpass();
         var responseBody = jsonDecode(response.body);
 
         if (response.statusCode == 200) {
+           storage.setItem("user_data", responseBody);
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Categories()));
+              MaterialPageRoute(builder: (context) => const Login()));
         } else if (!response['status']) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
@@ -137,11 +128,11 @@ class _ForgotPassState extends State<ForgotPass> {
                           color: Color(0xFF36BDA4), width: 1.0),
                       borderRadius: BorderRadius.circular(10.0)),
                 ),
-                controller: _EmailController,
+                controller: _emailController,
               )),
           Image.asset("assets/images/forgot_pass_center_img.png"),
           Padding(
-            padding: const EdgeInsets.fromLTRB(35.0, 50.0, 35.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(35.0, 50.0, 35.0, 20.0),
             child: SizedBox(
               height: 40,
               width: double.infinity,

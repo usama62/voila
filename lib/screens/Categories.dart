@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:voila/screens/booking.dart';
 import 'package:voila/screens/create_profile.dart';
+import 'package:voila/screens/login.dart';
 
 class Categories extends StatefulWidget {
   const Categories({
@@ -15,13 +15,17 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   final storage = LocalStorage('user_data');
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  PageController PagesController = PageController();
-  List<Widget> pages = [Categories(), Booking()];
 
   void onpagechanged(int index) {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  logout(){
+    storage.deleteItem('user_data');
+    Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Login()));
   }
 
   var username = '';
@@ -215,7 +219,7 @@ class _CategoriesState extends State<Categories> {
                           fontSize: 16,
                           fontWeight: FontWeight.w400)),
                   onTap: () {
-                    Navigator.pop(context);
+                    logout();
                   },
                 ),
                 const Divider(
@@ -248,14 +252,14 @@ class _CategoriesState extends State<Categories> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           RichText(
-                            text: const TextSpan(
-                              text: 'Hi John,\n',
-                              style: TextStyle(
+                            text: TextSpan(
+                              text: username != '' ? "Hi "+username+"\n" : "Janet\n",
+                              style: const TextStyle(
                                   color: Color(0xFFFFFFFF),
                                   fontFamily: "PoppinsSemiBold",
                                   fontSize: 24,
                                   fontWeight: FontWeight.w600),
-                              children: <TextSpan>[
+                              children: const <TextSpan>[
                                 TextSpan(
                                   text: 'Need some help today?',
                                   style: TextStyle(

@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:voila/screens/forgot_pass.dart';
 import 'package:voila/screens/ratings.dart';
 import 'package:voila/screens/tab_navigator.dart';
+import '../utils/helpers/validation_helper.dart';
 import 'signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/custom_snackbar.dart';
@@ -27,10 +28,13 @@ class _LoginState extends State<Login> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _forgetPasswordController = TextEditingController();
 
+  var initialData;
+
   @override
   void initState() {
+    initialData = storage.getItem('user_data');
     _emailController = TextEditingController();
-    _passwordController = TextEditingController();
+    _passwordController = TextEditingController()..text = initialData['password'];
     _forgetPasswordController = TextEditingController();
     super.initState();
   }
@@ -42,9 +46,6 @@ class _LoginState extends State<Login> {
     };
 
     http.Response response = await http.post(Global.getLoginUrl(), body: body);
-    print("login successfully");
-    print(response.statusCode);
-    print(response.body);
     return response;
   }
 
@@ -259,7 +260,7 @@ class _LoginState extends State<Login> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Ratings()));
+                                    builder: (context) => const ForgotPass()));
                           },
                           child: const Text(
                             "Forgot your password?",

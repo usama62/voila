@@ -1,8 +1,8 @@
 class Global {
   static const String baseUrl = "https://voilapro.nl";
   static const String _login = "/apis/login.php";
-  static const String _forgetPassword = "/apis/forgot_password.php";
-  static const String _register = "/apis//register.php";
+  static const String _forgetPassword = "/apis/forgotPassword.php";
+  static const String _register = "/apis/register.php";
   static const String _profile = "/apis/get_profile.php";
   static const String _updateProfile = "/apis/edit_profile.php";
   static const String _saveOfficerRating = "/apis/rating.php";

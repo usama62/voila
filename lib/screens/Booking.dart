@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voila/screens/tab_navigator.dart';
 
 class Booking extends StatefulWidget {
   const Booking({
@@ -29,7 +30,8 @@ class _BookingState extends State<Booking> {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const TabNavigator())),
         ),
         backgroundColor: const Color(0xFF36BDA4),
         title: const Text(

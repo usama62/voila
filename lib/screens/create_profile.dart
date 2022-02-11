@@ -52,7 +52,7 @@ class _CreateProfileState extends State<CreateProfile> {
     }
 
     Map<String, String> body = {
-      "id": userData['user_id'],
+      "id": userData['id'],
       "remote": remote,
       "jobTitle": _jobTitleController.text,
       "description": _descriptionController.text,

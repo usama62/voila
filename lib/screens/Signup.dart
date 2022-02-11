@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../utils/helpers/validation_helper.dart';
 import 'Login.dart';
 import 'package:http/http.dart' as http;
 import 'package:voila/constants/global.dart';
@@ -48,43 +49,45 @@ class _SignupState extends State<Signup> {
 
     http.Response response =
         await http.post(Global.getRegisterUrl(), body: body);
-    print("Sign up successfully");
-    print(response.statusCode);
-    print(response.body);
     return response;
   }
 
   void signupBtnListener() async {
+    bool emailValidationMsg =
+        ValidationHelper.validatePassword(_passwordController.text);
     try {
       if (_emailController.text.isNotEmpty &&
           _passwordController.text.isNotEmpty &&
-          _usernameController.text.isNotEmpty) {
+          _usernameController.text.isNotEmpty &&
+          emailValidationMsg == true) {
         if (_passwordController.text == _confirmpassController.text) {
           var response = await _signup();
           var responseBody = jsonDecode(response.body);
+          print(responseBody);
 
           if (response.statusCode == 200 && responseBody['login'] == "true") {
             storage.setItem("user_data", responseBody);
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const CreateProfile()));
-          } else if (!response['status']) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(CustomSnackbar.showSnackbar(response['message']));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+                CustomSnackbar.showSnackbar(responseBody['login']));
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
               CustomSnackbar.showSnackbar("Password doesn't match!"));
         }
       } else {
-        if (_passwordController.text.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              CustomSnackbar.showSnackbar('Please enter valid password!'));
-        } else if (_emailController.text.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              CustomSnackbar.showSnackbar('Please enter valid email address!'));
-        } else {
+        if (_usernameController.text.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
               CustomSnackbar.showSnackbar('Please enter valid username!'));
+        } else if (_passwordController.text.isEmpty ||
+            emailValidationMsg == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid password!'));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackbar.showSnackbar('Please enter valid email address!'));
         }
       }
     } catch (e) {
