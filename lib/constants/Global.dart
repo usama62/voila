@@ -15,9 +15,8 @@ class Global {
   static Uri getForgetPasswordUrl() => Uri.parse('$baseUrl$_forgetPassword');
   static Uri getProfileUrl() => Uri.parse('$baseUrl$_profile');
   static Uri getUpdateProfileUrl() => Uri.parse('$baseUrl$_updateProfile');
-  static Uri getsaveOfficerRatingUrl() =>
-      Uri.parse('$baseUrl$_saveOfficerRating');
-  static Uri getOfficerRatingUrl() => Uri.parse('$baseUrl$_getOfficerRating');
+  static Uri getsaveOfficerRatingUrl() => Uri.parse('$baseUrl$_getOfficerRating');
+  static Uri getOfficerRatingUrl() => Uri.parse('$baseUrl$_saveOfficerRating');
   static Uri getOfficerInfoUrl() => Uri.parse('$baseUrl$_getOfficerInfo');
   static Uri getBookingUrl() => Uri.parse('$baseUrl$_booking');
 

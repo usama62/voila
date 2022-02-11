@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:voila/screens/tab_navigator.dart';
+import '../constants/global.dart';
+import 'package:http/http.dart' as http;
 
 class Booking extends StatefulWidget {
   const Booking({
@@ -11,6 +16,7 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  final storage = LocalStorage('user_data');
   String? value = 'View All Feedback (345)';
   var items = [
     'View All Feedback (345)',
@@ -20,6 +26,25 @@ class _BookingState extends State<Booking> {
     'watermelon',
     'Pineapple'
   ];
+
+  getOfficer() async {
+    Map<String, String> body = {
+      "city": "karachi",
+    };
+
+    http.Response response =
+        await http.post(Global.getOfficerInfoUrl(), body: body);
+    return response;
+  }
+
+  void initState() async {
+    var response = await getOfficer();
+    var responseBody = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      storage.setItem("officer_data", responseBody);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

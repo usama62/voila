@@ -3,14 +3,11 @@ import 'package:voila/constants/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:voila/screens/forgot_pass.dart';
-import 'package:voila/screens/ratings.dart';
 import 'package:voila/screens/tab_navigator.dart';
-import '../utils/helpers/validation_helper.dart';
 import 'signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:voila/screens/custom/custom_snackbar.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:voila/screens/categories.dart';
 
 class Login extends StatefulWidget {
   const Login({
