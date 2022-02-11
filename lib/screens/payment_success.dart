@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voila/screens/tab_navigator.dart';
 
 class PaymentSuccess extends StatefulWidget {
   const PaymentSuccess({
@@ -33,11 +34,11 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Image.asset(
-                        "assets/images/icon_payment_success.png"),
+                    child:
+                        Image.asset("assets/images/icon_payment_success.png"),
                   ),
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(0.0,0.0,0.0,30.0),
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
                     child: Text(
                       "Congratulations",
                       style: TextStyle(
@@ -49,7 +50,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                   ),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:50.0,vertical: 30.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50.0, vertical: 30.0),
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: const TextSpan(
@@ -85,27 +87,32 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical:30.0),
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
             child: SizedBox(
-                height: 50,
-                width: 155.0,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFFEE8823),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )),
-                  onPressed: () {},
-                  child: const Text(
-                    'Next',
-                    style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontFamily: 'PoppinsSemiBold',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                  ),
+              height: 50,
+              width: 155.0,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFFEE8823),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    )),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TabNavigator()));
+                },
+                child: const Text(
+                  'Next',
+                  style: TextStyle(
+                      color: Color(0xFFFFFFFF),
+                      fontFamily: 'PoppinsSemiBold',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
+            ),
           ),
         ],
       ),

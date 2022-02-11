@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:voila/screens/payment_success.dart';
 
 class Payment extends StatefulWidget {
   const Payment({
@@ -147,7 +148,8 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                         child: Row(children: const [
                           Flexible(
                             child: TextField(
@@ -214,7 +216,12 @@ class _PaymentState extends State<Payment> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     )),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PaymentSuccess()));
+                },
                 child: const Text(
                   'Next',
                   style: TextStyle(

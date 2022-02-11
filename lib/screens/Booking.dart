@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:voila/screens/payment.dart';
 import 'package:voila/screens/tab_navigator.dart';
-import '../constants/global.dart';
-import 'package:http/http.dart' as http;
 
 class Booking extends StatefulWidget {
   const Booking({
@@ -27,23 +24,12 @@ class _BookingState extends State<Booking> {
     'Pineapple'
   ];
 
-  getOfficer() async {
-    Map<String, String> body = {
-      "city": "karachi",
-    };
-
-    http.Response response =
-        await http.post(Global.getOfficerInfoUrl(), body: body);
-    return response;
-  }
-
-  void initState() async {
-    var response = await getOfficer();
-    var responseBody = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      storage.setItem("officer_data", responseBody);
-    }
+  @override
+  void initState() {
     super.initState();
+    var officer_data = storage.getItem('officer_data');
+    // print("officer_data");
+    // print(officer_data);
   }
 
   @override
@@ -686,7 +672,12 @@ class _BookingState extends State<Booking> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 )),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Payment()));
+                            },
                             child: const Text(
                               'Next',
                               style: TextStyle(

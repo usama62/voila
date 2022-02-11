@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:localstorage/localstorage.dart';
 import 'Categories.dart';
 import 'booking.dart';
 
@@ -13,6 +13,7 @@ class TabNavigator extends StatefulWidget {
 }
 
 class _TabNavigatorState extends State<TabNavigator> {
+  final storage = LocalStorage('user_data');
   PageController pagesController = PageController();
   List<Widget> pages = [const Categories(), const Booking()];
 
@@ -25,6 +26,10 @@ class _TabNavigatorState extends State<TabNavigator> {
   }
 
   void _onItemTapped(int selectedIndex) {
+    if (selectedIndex == 1) {
+      print("selectedIndex");
+      print(selectedIndex);
+    }
     pagesController.jumpToPage(selectedIndex);
   }
 
