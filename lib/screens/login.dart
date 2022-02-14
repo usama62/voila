@@ -25,13 +25,17 @@ class _LoginState extends State<Login> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _forgetPasswordController = TextEditingController();
 
-  var initialData;
+  var forgotten_pass = '';
 
   @override
   void initState() {
-    initialData = storage.getItem('user_data');
+    if (storage.getItem("user_data") != null) {
+      var initialData = storage.getItem('user_data');
+      forgotten_pass = initialData['password'];
+    }
     _emailController = TextEditingController();
-    _passwordController = TextEditingController()..text = initialData['password'];
+    _passwordController = TextEditingController()
+      ..text = forgotten_pass;
     _forgetPasswordController = TextEditingController();
     super.initState();
   }
