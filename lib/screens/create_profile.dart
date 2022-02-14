@@ -54,7 +54,7 @@ class _CreateProfileState extends State<CreateProfile> {
     }
 
     Map<String, String> body = {
-      "id": userData['id'],
+      "id": userData['user_id'],
       "remote": remote,
       "jobTitle": _jobTitleController.text,
       "description": _descriptionController.text,
@@ -112,16 +112,27 @@ class _CreateProfileState extends State<CreateProfile> {
                     });
                     Navigator.of(context).pop();
                   },
-                  child: Row(
-                    children: const [
-                      Text("Pick image from Gallery",
-                          style: TextStyle(
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F1F39))),
-                    ],
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFEE8823),
+                    ),
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Pick image from Gallery",
+                              style: TextStyle(
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFFFFFFF))),
+                        ),
+                      ],
+                    ),
                   ),
+                ),
+                const SizedBox(
+                  height: 20.0,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -134,15 +145,23 @@ class _CreateProfileState extends State<CreateProfile> {
                     });
                     Navigator.of(context).pop();
                   },
-                  child: Row(
-                    children: const [
-                      Text("Capture image",
-                          style: TextStyle(
-                              fontFamily: "PoppinsSemiBold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F1F39))),
-                    ],
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFEE8823),
+                    ),
+                    child: Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Capture Image",
+                              style: TextStyle(
+                                  fontFamily: "PoppinsSemiBold",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFFFFFFF))),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
