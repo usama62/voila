@@ -42,6 +42,8 @@ class _CreateProfileState extends State<CreateProfile> {
   }
 
   Future _saveProfile() async {
+                
+    
     var userData = storage.getItem('user_data');
     String img64 = base64Encode(File(profileImage).readAsBytesSync());
     String remote = '';
@@ -68,6 +70,7 @@ class _CreateProfileState extends State<CreateProfile> {
     try {
       if (_jobTitleController.text.isNotEmpty &&
           _descriptionController.text.isNotEmpty) {
+
         var response = await _saveProfile();
         var responseBody = jsonDecode(response.body);
 
